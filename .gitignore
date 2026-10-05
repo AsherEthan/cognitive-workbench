@@ -20,3 +20,8 @@ coverage/
 **/USER/
 **/MEMORY/
 logs/
+
+# 桌面編譯、安裝包與本機驗證
+/desktop/dist/
+/desktop/release/
+/desktop/.test-data/

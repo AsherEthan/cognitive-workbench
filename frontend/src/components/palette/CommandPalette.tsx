@@ -23,8 +23,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { wikiPageUrl } from "@/lib/wiki-links";
-import { paletteEntries, type NavItem } from "@/lib/palette/nav-manifest";
+import { paletteEntries, desktopNav, type NavItem } from "@/lib/palette/nav-manifest";
 import { useEnabledModules } from "@/lib/use-enabled-modules";
+import { useDesktopCapabilities } from "@/lib/use-desktop-capabilities";
 import { fuzzyScore } from "@/lib/palette/fuzzy";
 import { recordSelection, frecencyBoost, topRecents, loadStore } from "@/lib/palette/frecency";
 import { PALETTE_OPEN_EVENT, type PaletteScope } from "@/lib/palette/events";
@@ -74,6 +75,7 @@ export default function CommandPalette() {
   const pathnameRef = useRef("/");
   const router = useRouter();
   const pathname = usePathname();
+  const { desktop, pages } = useDesktopCapabilities();
 
   openRef.current = open;
   pathnameRef.current = pathname ?? "/";
@@ -82,9 +84,9 @@ export default function CommandPalette() {
     setQuery("");
     setWikiResults([]);
     setSelectedIndex(0);
-    setScope(initialScope);
+    setScope(desktop ? "pages" : initialScope);
     setOpen(true);
-  }, []);
+  }, [desktop]);
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -129,7 +131,7 @@ export default function CommandPalette() {
 
   // Wiki lane: debounced 150ms, only when it can matter.
   useEffect(() => {
-    if (!open || scope === "pages" || query.trim().length < 2) {
+    if (desktop || !open || scope === "pages" || query.trim().length < 2) {
       setWikiResults([]);
       setWikiLoading(false);
       return;
@@ -155,19 +157,19 @@ export default function CommandPalette() {
       clearTimeout(timer);
       controller.abort(); // kill in-flight fetch so a stale response can't land
     };
-  }, [open, query, scope]);
+  }, [desktop, open, query, scope]);
 
   // Jumping to a page whose module is switched off lands on an empty view, so
   // the palette searches the same filtered set the nav renders.
   // ported from public PR #1749, @elhoim
   const isEnabled = useEnabledModules();
-  const entries = useMemo(() => paletteEntries.filter(isEnabled), [isEnabled]);
+  const entries = useMemo(() => desktop ? desktopNav.filter(item => pages?.includes(item.href)) : paletteEntries.filter(isEnabled), [desktop, pages, isEnabled]);
 
   // Local lane + merge.
   const rows: Row[] = useMemo(() => {
     const out: Row[] = [];
     const q = query.trim();
-    if (scope !== "wiki") {
+    if (desktop || scope !== "wiki") {
       if (!q) {
         const recents = topRecents(6)
           .map((id) => entries.find((e) => e.href === id))
@@ -189,11 +191,11 @@ export default function CommandPalette() {
           .forEach(({ entry }) => out.push({ kind: "page", entry }));
       }
     }
-    if (scope !== "pages") {
+    if (!desktop && scope !== "pages") {
       wikiResults.forEach((result) => out.push({ kind: "wiki", result }));
     }
     return out;
-  }, [query, scope, wikiResults, entries]);
+  }, [desktop, query, scope, wikiResults, entries]);
 
   useEffect(() => {
     setSelectedIndex(0);
@@ -227,7 +229,7 @@ export default function CommandPalette() {
       } else if (e.key === "Enter" && rows[clampedIndex]) {
         e.preventDefault();
         activate(rows[clampedIndex], e.metaKey);
-      } else if (e.key === "Tab") {
+      } else if (e.key === "Tab" && !desktop) {
         e.preventDefault();
         setScope((s) => (s === null ? "pages" : s === "pages" ? "wiki" : null));
       } else if (e.key === "Backspace" && !query && scope !== null) {
@@ -237,7 +239,7 @@ export default function CommandPalette() {
         close();
       }
     },
-    [rows, clampedIndex, activate, query, scope, close]
+    [desktop, rows, clampedIndex, activate, query, scope, close]
   );
 
   if (!open) return null;
@@ -323,12 +325,12 @@ export default function CommandPalette() {
           )}
           <input
             ref={inputRef}
-            aria-label="搜尋工作區、文件與知識"
+            aria-label={desktop ? "搜尋工作區" : "搜尋工作區、文件與知識"}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleInputKeyDown}
-            placeholder={scope === "wiki" ? "搜尋文件與知識…" : "搜尋工作區、文件與知識…"}
+            placeholder={desktop ? "搜尋自我覺察、練習或處理層連接…" : scope === "wiki" ? "搜尋文件與知識…" : "搜尋工作區、文件與知識…"}
             className="flex-1 min-w-0 bg-transparent text-[15px] text-ink-1 placeholder:text-ink-3 outline-none caret-[#b5e5d5]"
             style={font}
           />
@@ -373,8 +375,8 @@ export default function CommandPalette() {
           <span>↑↓ 選擇</span>
           <span>⏎ 開啟</span>
           <span>⌘⏎ 新分頁</span>
-          <span>定位鍵切換範圍</span>
-          {scope && <span>⌫ 清除範圍</span>}
+          {!desktop && <span>定位鍵切換範圍</span>}
+          {!desktop && scope && <span>⌫ 清除範圍</span>}
         </div>
       </div>
     </div>

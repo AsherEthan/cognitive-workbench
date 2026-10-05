@@ -1,0 +1,769 @@
+{
+  "schemaVersion": "lifeos-hyperedges-evidence/v1",
+  "title": "LifeOS v7.40.4 功能關係超圖：證據中介資料",
+  "baseline": {
+    "repository": "danielmiessler/LifeOS",
+    "tag": "v7.40.4",
+    "commit": "be9e8ef889f00a29f4fd677dee4772fdf32e07ce",
+    "algorithmVersion": "8.20.2",
+    "cortexVersion": "8.3.0",
+    "verificationMode": "source-review-only",
+    "runtimeExecuted": false
+  },
+  "modelingNotes": [
+    "8 條超邊是本次對共同工作流的整理，官方沒有提供這一組超圖；原關係是否實作由各邊的證據與限制決定。",
+    "一條 incidence 超邊表示多個功能共同完成同一件事，不表示其成員之間全都有直接或雙向程式依賴。",
+    "相同功能只保留一個標準 node；別名、不同實體和原有細分放入 description/detail，不應將共享功能節點誤當成同一實體ID或同一檔案。",
+    "Intent 為跨 TELOS、ISA、memory/context、verification 的概念，不設獨立 Intent 服務節點。",
+    "圖中的 implemented 表示 pinned 公開來源支持相關實作，不表示已在本機啟動或已配置所有帳戶/服務。",
+    "H5 的目標標記、H6 的完整私有pipeline、H7 的cron/資料源wiring，必須顯示成熟度差異。"
+  ],
+  "typeLegend": {
+    "implemented": "已有公開機制/程式支持；仍須看部署與配置邊界。",
+    "concept": "以官方概念或架構說明為證據；不宣稱整條公開可運行。",
+    "partial": "原工作流部分公開落地，另有規劃或未配置/未提供的部分。"
+  },
+  "statusLegend": {
+    "已核實": "文件或程式證據支持此功能關係；不表示使用者機器已配置。",
+    "部分實作／需接線": "有公開程式，但部分關係仍在規劃或需額外設定。",
+    "完整實作未公開": "公開資料足以參考設計；完整 pipeline 依賴未公開或個人基礎設施。"
+  },
+  "nodes": [
+    {
+      "id": "telos",
+      "label": "人生方向與目標",
+      "originalName": "TELOS / Goals",
+      "aliases": [
+        "Mission",
+        "Goals",
+        "Strategies"
+      ],
+      "description": "長期意圖、人生目標與策略；此版以 TELOS.md 為 canonical source。",
+      "group": "intent"
+    },
+    {
+      "id": "current",
+      "label": "目前狀態",
+      "originalName": "Current State",
+      "aliases": [
+        "Observed State",
+        "CURRENT_STATE"
+      ],
+      "description": "可被記錄、檢視和修正的現況；資料來源可含記憶、觀察與近期工作。",
+      "group": "intent"
+    },
+    {
+      "id": "ideal",
+      "label": "理想狀態",
+      "originalName": "Ideal State",
+      "aliases": [
+        "IDEAL_STATE"
+      ],
+      "description": "希望達到的狀態，與目前狀態共同定義需縮小的差距。",
+      "group": "intent"
+    },
+    {
+      "id": "isa",
+      "label": "完成定義與驗證條件",
+      "originalName": "ISA / ISC",
+      "aliases": [
+        "Project ISA",
+        "Task ISA",
+        "Claims",
+        "Test Strategy"
+      ],
+      "description": "將任務或專案的意圖外化成持久產物及可驗證條件。",
+      "group": "work"
+    },
+    {
+      "id": "algorithm",
+      "label": "任務推進機制",
+      "originalName": "Algorithm",
+      "aliases": [
+        "Algorithm System",
+        "Ascent"
+      ],
+      "description": "圍繞意圖、產物、工具與驗證的任務推進機制；此版不是早期固定 mode 或 effort-tier 流程。",
+      "group": "work"
+    },
+    {
+      "id": "projects",
+      "label": "專案",
+      "originalName": "Projects",
+      "aliases": [
+        "PROJECTS.md",
+        "Persistent Projects"
+      ],
+      "description": "有持續身份、跨多次任務演進的工作對象。",
+      "group": "work"
+    },
+    {
+      "id": "work",
+      "label": "工作項目與狀態",
+      "originalName": "Work / Work Items / Work Registry",
+      "aliases": [
+        "Tasks",
+        "GitHub Issues",
+        "MEMORY/STATE/work.json",
+        "Work Board"
+      ],
+      "description": "統一呈現可執行工作及其狀態。GitHub issue 與 work.json 是不同實體，此節點只合併其功能角色，細節保留在各邊。",
+      "group": "work"
+    },
+    {
+      "id": "memory",
+      "label": "記憶與知識",
+      "originalName": "Cortex / Memory / Typed Memory",
+      "aliases": [
+        "Memory",
+        "Ideas",
+        "Knowledge",
+        "KNOWLEDGE",
+        "Hot-layer Memory"
+      ],
+      "description": "保存可重用的記憶、想法與知識；proposal 決策另歸 review 節點。",
+      "group": "knowledge"
+    },
+    {
+      "id": "capture",
+      "label": "輸入與捕獲",
+      "originalName": "Inputs / Capture",
+      "aliases": [
+        "Conversation Capture",
+        "Manual Capture",
+        "Feed Inputs",
+        "Activity Events"
+      ],
+      "description": "保留輸入內容、來源與時間。不同渠道的捕獲實作與公開可用程度需看各超邊。",
+      "group": "knowledge"
+    },
+    {
+      "id": "review",
+      "label": "整理與修訂審閱",
+      "originalName": "Memory Review / Proposal Decisions",
+      "aliases": [
+        "MemoryReviewer",
+        "Proposals",
+        "Accept / Reject / Edit"
+      ],
+      "description": "從輸入整理出候選資料，並處理需要確認的修訂；不表示每筆記憶都必須經人工審閱。",
+      "group": "knowledge"
+    },
+    {
+      "id": "retrieval",
+      "label": "檢索與脈絡恢復",
+      "originalName": "Retrieval / Recall / Context",
+      "aliases": [
+        "Relevant Memory",
+        "Runtime Context",
+        "Resume"
+      ],
+      "description": "找到相關記憶或持久工作產物，供再次理解、續作或新的 Agent 任務使用。",
+      "group": "knowledge"
+    },
+    {
+      "id": "execution",
+      "label": "工具與代理執行",
+      "originalName": "Tools / Agents",
+      "aliases": [
+        "Agent Turn",
+        "Skills",
+        "Tool Calls",
+        "Subagents"
+      ],
+      "description": "執行任務和工具調用的能力，應與工作台的資料模型分開。",
+      "group": "runtime"
+    },
+    {
+      "id": "verification",
+      "label": "證據與結果驗證",
+      "originalName": "Evidence / Verification",
+      "aliases": [
+        "Probes",
+        "Verification Evidence"
+      ],
+      "description": "以與主張相符的證據判斷完成條件是否成立。",
+      "group": "work"
+    },
+    {
+      "id": "learning",
+      "label": "決策與學習紀錄",
+      "originalName": "Decisions / Learning",
+      "aliases": [
+        "Reflections",
+        "LEARNING",
+        "Lessons"
+      ],
+      "description": "保存決策理由、發現及可重用的學習，支持跨次工作演進。",
+      "group": "knowledge"
+    },
+    {
+      "id": "conduit",
+      "label": "內部活動感知",
+      "originalName": "Conduit / Sensing",
+      "aliases": [
+        "App Focus",
+        "Git Activity",
+        "Claude Session Activity",
+        "Daily Record"
+      ],
+      "description": "可選的本機活動捕獲及每日彙整；此版自動對應 TELOS goals 的部分仍在 roadmap。",
+      "group": "input"
+    },
+    {
+      "id": "synapse",
+      "label": "資訊保存與路由",
+      "originalName": "Synapse",
+      "aliases": [
+        "Amber Ledger",
+        "Journal",
+        "Grade / Route",
+        "Feed Routing"
+      ],
+      "description": "先保存捕獲，再按目標評估並路由的架構；完整私有 pipeline 不包含於公開 release。",
+      "group": "knowledge"
+    },
+    {
+      "id": "worksweep",
+      "label": "目標與專案巡查",
+      "originalName": "WorkSweep",
+      "aliases": [
+        "Goal Derivation",
+        "Project Check",
+        "Stale Work Review"
+      ],
+      "description": "找出沒有下一步的 active goals 與停滯專案，建立可檢視的工作項。",
+      "group": "automation"
+    },
+    {
+      "id": "heartbeat",
+      "label": "事件觸發的背景跟進",
+      "originalName": "Heartbeat",
+      "aliases": [
+        "Wake Gate",
+        "Deterministic Tick",
+        "Hermes Cron"
+      ],
+      "description": "先做 deterministic check，再決定是否喚醒 Agent；公開版提供腳本，排程 wiring 需另設。",
+      "group": "automation"
+    },
+    {
+      "id": "notification",
+      "label": "提醒與摘要交付",
+      "originalName": "Notifications / Brief",
+      "aliases": [
+        "Morning Brief",
+        "Quiet-hours Delivery",
+        "Heartbeat Ledger"
+      ],
+      "description": "將需要注意的事件交付給使用者，或保存到稍後摘要。此處 heartbeat ledger 不是 LifeOS 的 Ledger 變更管理子系統。",
+      "group": "automation"
+    },
+    {
+      "id": "hooks",
+      "label": "執行事件掛鉤",
+      "originalName": "Hooks",
+      "aliases": [
+        "PostToolUse",
+        "ISASync",
+        "EventLogger"
+      ],
+      "description": "在宿主事件上執行同步、紀錄或檢查的機制；多與原框架運行環境綁定。",
+      "group": "runtime"
+    },
+    {
+      "id": "observability",
+      "label": "運行紀錄與診斷",
+      "originalName": "Observability",
+      "aliases": [
+        "JSONL Events",
+        "Tool Activity",
+        "Tool Failures",
+        "Subagent Events"
+      ],
+      "description": "保存和呈現工具、Agent、記憶與任務的運行證據及故障。",
+      "group": "runtime"
+    },
+    {
+      "id": "pulse",
+      "label": "查看與回顧介面",
+      "originalName": "Pulse",
+      "aliases": [
+        "Dashboard",
+        "Work Tab",
+        "Memory Review UI",
+        "Conduit View"
+      ],
+      "description": "讀取多個資料來源的介面；頁面存在不代表背後的私有服務或資料生產流程已包含在公開版。",
+      "group": "interface"
+    }
+  ],
+  "edges": [
+    {
+      "id": "H1",
+      "label": "意圖對齊",
+      "type": "concept",
+      "status": "已核實",
+      "priority": "core",
+      "memberIds": [
+        "telos",
+        "current",
+        "ideal",
+        "isa",
+        "verification"
+      ],
+      "summary": "長期方向與現況共同界定差距，ISA 將本次任務的意圖寫成可驗證條件，結果再對照意圖檢查。",
+      "detail": [
+        "Intent 在官方文件中是跨功能概念：TELOS 承載長期意圖，ISA 承載任務意圖，memory/context 承載情境，verification 完成回饋。",
+        "此超邊整理的是共同目的與資訊關係，不宣稱存在名為 Intent 的獨立 runtime service。",
+        "TELOS.md 是 canonical source；PRINCIPAL_TELOS.md 為生成摘要，獨立 MISSION.md、GOALS.md 等是 legacy samples/fallback。"
+      ],
+      "evidence": {
+        "basis": [
+          "官方概念文件",
+          "canonical 資料來源文件"
+        ],
+        "assessment": "關係由官方文件直接陳述；以超邊表達是本次整理。"
+      },
+      "limitation": "意圖對齊是設計與資料契約；不代表所有現況資料已自動感知或目標落差已自動計算。",
+      "adoption": "優先吸收方向、現況、下一步、完成證據之間的資料關係；不需要一併採用原作所有 prompt 與 hooks。",
+      "sources": [
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/LifeOs/LifeOsThesis.md",
+          "startLine": 30,
+          "endLine": 44,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/LifeOs/LifeOsThesis.md#L30-L44",
+          "support": "直接定義 TELOS、ISA、memory/context、verification 的意圖分工。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/LifeOs/LifeOsThesis.md",
+          "startLine": 87,
+          "endLine": 95,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/LifeOs/LifeOsThesis.md#L87-L95",
+          "support": "定義 current state 與 ideal state 的輸入及核心回饋循環。"
+        },
+        {
+          "path": "LifeOS/install/USER/TELOS/README.md",
+          "startLine": 14,
+          "endLine": 36,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/USER/TELOS/README.md#L14-L36",
+          "support": "TELOS.md、生成摘要及 legacy split files 的權威關係。"
+        }
+      ]
+    },
+    {
+      "id": "H2",
+      "label": "任務執行與跨次延續",
+      "type": "implemented",
+      "status": "已核實",
+      "priority": "support",
+      "memberIds": [
+        "projects",
+        "isa",
+        "algorithm",
+        "execution",
+        "learning",
+        "retrieval"
+      ],
+      "summary": "專案與一次性任務共用 ISA 類型的持久產物；Agent 推進工作、保存決策和學習，後续以產物恢復脈絡。",
+      "detail": [
+        "Project ISA 存在專案 repo，跨多次任務持續演進；Task ISA 保存於 MEMORY/WORK，描述一次性工作。",
+        "Tools/Agents 進行執行，ISA 保留 claims、證據、決策與學習。Resume 在本圖合併到 retrieval：恢復依據是持久產物，不是專屬 Agent 的聊天記憶。",
+        "可拆分給新 context 的 ephemeral feature files 是派生視圖，reconcile 回 master ISA；此細節保留為原框架可選機制。"
+      ],
+      "evidence": {
+        "basis": [
+          "官方機制文件",
+          "公開 ISASync hook"
+        ],
+        "assessment": "檔案生命週期與子系統關係有明文，hook 有實際同步呼叫；未做 runtime 啟動驗證。"
+      },
+      "limitation": "原生 hooks、逐 ISC checkpoint 和較完整的 ISA 格式是 LifeOS 執行框架機制，不能假設其他 Agent 自動支援。",
+      "adoption": "吸收專案/任務分離、持久工作狀態、決策理由及恢復能力；控制協議由 Hermes/nanobot 等 adapter 處理。",
+      "sources": [
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/ISA/ISASystem.md",
+          "startLine": 230,
+          "endLine": 246,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ISA/ISASystem.md#L230-L246",
+          "support": "Project/Task ISA 的儲存位置、不同生命週期及派生 feature views。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/ISA/ISASystem.md",
+          "startLine": 269,
+          "endLine": 292,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ISA/ISASystem.md#L269-L292",
+          "support": "執行、驗證、close、between runs 與 TELOS/Memory/Hooks/Pulse 的直接關係。"
+        },
+        {
+          "path": "LifeOS/install/hooks/ISASync.hook.ts",
+          "startLine": 121,
+          "endLine": 145,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/hooks/ISASync.hook.ts#L121-L145",
+          "support": "公開程式 syncToWorkJson 與共同 deriveAscent 的實際執行。"
+        }
+      ]
+    },
+    {
+      "id": "H3",
+      "label": "目標到下一步",
+      "type": "implemented",
+      "status": "已核實",
+      "priority": "support",
+      "memberIds": [
+        "telos",
+        "projects",
+        "worksweep",
+        "work",
+        "pulse"
+      ],
+      "summary": "把沒有下一步的目標與久未活動的專案變成可檢視的工作項，供看板與回顧使用。",
+      "detail": [
+        "WorkSweep 讀 PROJECTS.md 並查看 Git 最後提交時間，建立去重的 Project-Check issue。",
+        "WorkSweep 從 PRINCIPAL_TELOS.md 的 Active Goals 讀 G-ID，沒有匹配 open issue 時建立 Goal issue。",
+        "此邊把 issue、工作狀態與看板合併為 work/pulse 的功能關係；GitHub Issues 與 MEMORY/STATE/work.json 仍是不同實體，不應混用其 ID。"
+      ],
+      "evidence": {
+        "basis": [
+          "公開 WorkSweep 程式",
+          "WorkSystem 資料讀寫關係文件"
+        ],
+        "assessment": "目標與專案巡查有可讀程式碼，真正執行需啟用配置及既有 work repo。"
+      },
+      "limitation": "完整 Work System 的 SessionEnd capture hook 與 TASKLIST regenerator 涉及私有元件；不能由這段公開 code 推定整條原工作追蹤鏈開箱即用。",
+      "adoption": "吸收『有目標卻無下一步』與『專案需要重新確認』；任務可存工作台自己的 store，無需綁 GitHub 或 commit 年齡。",
+      "sources": [
+        {
+          "path": "LifeOS/install/LIFEOS/TOOLS/WorkSweep.ts",
+          "startLine": 337,
+          "endLine": 486,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/TOOLS/WorkSweep.ts#L337-L486",
+          "support": "parseProjectsMd、sweepProjectChecks、parseActiveGoals、sweepGoals 的直接實作。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Work/WorkSystem.md",
+          "startLine": 12,
+          "endLine": 14,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Work/WorkSystem.md#L12-L14",
+          "support": "私有 GitHub issue 為原 WorkSystem 的 source of record，Pulse/TASKLIST 等為讀者。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/TOOLS/WorkSweep.ts",
+          "startLine": 620,
+          "endLine": 633,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/TOOLS/WorkSweep.ts#L620-L633",
+          "support": "TASKLIST regenerator 為 optional/private 元件，公開版先檢查是否存在。"
+        }
+      ]
+    },
+    {
+      "id": "H4",
+      "label": "記憶整理、修訂與再利用",
+      "type": "implemented",
+      "status": "已核實",
+      "priority": "core",
+      "memberIds": [
+        "capture",
+        "review",
+        "memory",
+        "retrieval",
+        "pulse"
+      ],
+      "summary": "從會話等輸入整理出 typed memory，對需要確認的修訂作出決定，再把相關記憶帶入新的任務。",
+      "detail": [
+        "memory、idea、knowledge、proposal 是不同資料類型；type 決定路由，tier 決定寫入規則，兩者不應混成一個分類。",
+        "MemoryReviewer 讀近期 transcript、產生 typed items，交由 MemorySystem.add 處理。Proposal Decisions 與閱覽介面在本圖合併 review/pulse。",
+        "檢索包括 hot-layer 及 BM25 relevant context；不代表所有歷史訊息永遠塞進每次 prompt。",
+        "原作有自動套用與人工決定兩種情形，本圖不暗示所有寫入都由人工批准，亦不把該自動套用策略推薦為工作台預設。"
+      ],
+      "evidence": {
+        "basis": [
+          "官方 typed-memory 機制文件",
+          "公開元件與接口清單"
+        ],
+        "assessment": "型別、reviewer、寫入、提案及 retrieval 關係均有明確文檔；本次未啟動真實 reviewer。"
+      },
+      "limitation": "宿主 transcript 採集、hook cadence、模型與自動套用政策需要適配；不是換一個 Agent 就會自動繼承。",
+      "adoption": "优先吸收來源、候選/已整理資料、修訂決策、相關檢索；Cortex 的 agent-neutral CLI 可列作局部復用候選。",
+      "sources": [
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md",
+          "startLine": 99,
+          "endLine": 145,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md#L99-L145",
+          "support": "typed items、proposal target、type/tier 分離與寫入邊界。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md",
+          "startLine": 147,
+          "endLine": 172,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md#L147-L172",
+          "support": "MemoryReviewer→MemorySystem.add→proposal surface→per-turn retrieval 的完整機制。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md",
+          "startLine": 64,
+          "endLine": 78,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md#L64-L78",
+          "support": "lifeos-cortex/v1 本地 CLI/adapter 與沒有 MCP server/daemon 的邊界。"
+        }
+      ]
+    },
+    {
+      "id": "H5",
+      "label": "活動感知與現況回顧",
+      "type": "partial",
+      "status": "部分實作／需接線",
+      "priority": "optional",
+      "memberIds": [
+        "conduit",
+        "capture",
+        "current",
+        "telos",
+        "memory",
+        "pulse"
+      ],
+      "summary": "內部活動形成每日紀錄並供回顧；把活動進一步對應人生目標是設計關係，這版尚有未完成部分。",
+      "detail": [
+        "已 shipped 的部分是 appFocus/git/claudeSession 捕獲→JSONL→deterministic daily record→Pulse 查看，v1.1 增加 content-type insight。",
+        "每日紀錄屬 observed current state；Conduit 文件描述它與 Cortex、TELOS gap 的關係。",
+        "活動→TELOS goal 自動標記在此版仍屬 v2 roadmap，受 D-11 validation spike 限制；不能標成已完整實作的自動對齊分析。",
+        "Conduit 的 daily record 不等於 Synapse 的 amber ledger，兩條捕獲流程在原架構中的持久來源不同。"
+      ],
+      "evidence": {
+        "basis": [
+          "公開 Conduit 功能及 roadmap 文件"
+        ],
+        "assessment": "capture/daily/view 的 shipped 範圍有明文；跨到自動 goal tagging 的關係仍為規劃。"
+      },
+      "limitation": "H5 是混合成熟度超邊。實線僅代表已描述 shipped 的捕獲與展示，通往自動目標評分的部分應以虛線/部分完成標示。",
+      "adoption": "先吸收手動/可選輸入的現況回顧；是否做 app focus、瀏覽器或帳戶感測器另行決定。",
+      "sources": [
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Conduit/ConduitSystem.md",
+          "startLine": 9,
+          "endLine": 30,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Conduit/ConduitSystem.md#L9-L30",
+          "support": "內部感知、daily record、Cortex/TELOS 的角色及 deterministic v1。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Conduit/ConduitSystem.md",
+          "startLine": 42,
+          "endLine": 98,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Conduit/ConduitSystem.md#L42-L98",
+          "support": "capture/rollup 流程、事件形狀、reserved telosTags 與 observed/ideal 邊界。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Conduit/ConduitSystem.md",
+          "startLine": 188,
+          "endLine": 195,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Conduit/ConduitSystem.md#L188-L195",
+          "support": "v1/v1.1 shipped 與 v2 TELOS scoring、後續 adapters 的明確區分。"
+        }
+      ]
+    },
+    {
+      "id": "H6",
+      "label": "外部資訊到知識與行動",
+      "type": "concept",
+      "status": "完整實作未公開",
+      "priority": "core",
+      "memberIds": [
+        "capture",
+        "synapse",
+        "telos",
+        "memory",
+        "work",
+        "retrieval"
+      ],
+      "summary": "先保存來源，再按方向整理與路由，形成可回顧的知識或行動；這條完整原 pipeline 不能由公開 release 直接啟動。",
+      "detail": [
+        "Synapse 的概念順序是 capture→journal→grade→route→resurface；保存發生在模型評估前，低評分输入亦保留。",
+        "共同捕獲契約包括 source、external_id、captured_at、url/content 與去重規則。",
+        "TELOS 用於評估與路由；目的地可以是 Cortex knowledge、work item/project、reminder 等，檢索/再浮現屬保存契約的一部分。",
+        "Feed 是外部來源的私有實作說明；Synapse 的 capture endpoint 與部分 worker 也為 per-install private infrastructure。公開 Pulse 頁面或讀取端不等於完整 pipeline。"
+      ],
+      "evidence": {
+        "basis": [
+          "官方架構文件",
+          "公開 payload 邊界的直接聲明"
+        ],
+        "assessment": "官方明述共同工作流，但部分聲稱已運行的元件屬維護者私有部署，未作公開執行證實。"
+      },
+      "limitation": "status『現有不可用』僅指無法從 v7.40.4 公開 payload 直接取得完整可運行鏈，不表示維護者私有系統不存在，也不表示公開版沒有相關展示或工具。",
+      "adoption": "核心概念優先吸收；用 Hermes/nanobot 的既有渠道加上我們自己的 capture/store/tools 契約實作，無需重建原 Arbol/Feed 基建。",
+      "sources": [
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Synapse/SynapseSystem.md",
+          "startLine": 35,
+          "endLine": 114,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Synapse/SynapseSystem.md#L35-L114",
+          "support": "先持久捕獲、來源/去重、非同步評估/路由及 recall 的共同契約。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Synapse/SynapseSystem.md",
+          "startLine": 133,
+          "endLine": 218,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Synapse/SynapseSystem.md#L133-L218",
+          "support": "目的地、Conduit/Cortex 邊界及 private capture endpoint 的明確說明。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Feed/FeedSystem.md",
+          "startLine": 5,
+          "endLine": 11,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Feed/FeedSystem.md#L5-L11",
+          "support": "Feed implementation 不隨 OSS release 提供的直接聲明。"
+        }
+      ]
+    },
+    {
+      "id": "H7",
+      "label": "有事件才啟動背景跟進",
+      "type": "partial",
+      "status": "部分實作／需接線",
+      "priority": "optional",
+      "memberIds": [
+        "heartbeat",
+        "capture",
+        "execution",
+        "notification"
+      ],
+      "summary": "便宜的定期檢查先決定是否有值得處理的事件，再喚醒 Agent；需要提醒或稍後摘要的發現留有紀錄。",
+      "detail": [
+        "Tick.ts 可檢查 calendar lookahead、important-mail header candidates、到期 queue，以及預設關閉的 location。",
+        "最後一行 wakeAgent:false/true 是 Hermes scheduler 的 wake-gate 契約；無 findings 時不觸發模型處理。",
+        "Heartbeat ledger 用於 findings 與 quiet-hours/brief，不是 LifeOS Ledger 的版本/變更 authority；因此不把兩者合併成同一節點。",
+        "腳本存在不代表 cron 已安裝。Calendar private skill、gws mail CLI、個人 config 及通知交付均有額外依賴。"
+      ],
+      "evidence": {
+        "basis": [
+          "公開 Tick.ts 實作",
+          "HermesSidecar wiring 限制"
+        ],
+        "assessment": "deterministic checks、queue、ledger、wake-gate 程式存在；排程 wiring 和全部資料源未包含在公開開箱配置。"
+      },
+      "limitation": "scripts ship; wiring does not。Mount 不安裝這些 cron；缺少 private calendar/gws 等工具會 skip。圖上不能標成已預設啟用的完整主動助理。",
+      "adoption": "採納 follow-up/reminder 與 wake-gate 概念；把排程、喚醒和交付留在可替換 runtime adapter 的能力範圍。",
+      "sources": [
+        {
+          "path": "LifeOS/install/LIFEOS/HERMES/Heartbeat/Tick.ts",
+          "startLine": 1,
+          "endLine": 18,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/HERMES/Heartbeat/Tick.ts#L1-L18",
+          "support": "腳本用途、四種檢查與零模型檢查階段。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/HERMES/Heartbeat/Tick.ts",
+          "startLine": 147,
+          "endLine": 186,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/HERMES/Heartbeat/Tick.ts#L147-L186",
+          "support": "到期 queue、ledger、quiet-hours 和 wakeAgent 的直接實作。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Hermes/HermesSidecar.md",
+          "startLine": 366,
+          "endLine": 381,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Hermes/HermesSidecar.md#L366-L381",
+          "support": "腳本有提供、cron wiring 未提供及缺少私有工具時的 skip 行為。"
+        }
+      ]
+    },
+    {
+      "id": "H8",
+      "label": "執行證據與可觀測狀態",
+      "type": "implemented",
+      "status": "已核實",
+      "priority": "diagnostic",
+      "memberIds": [
+        "hooks",
+        "isa",
+        "work",
+        "execution",
+        "observability",
+        "pulse"
+      ],
+      "summary": "掛鉤同步任務產物狀態並記錄工具/Agent 事件，Pulse 讀取同一批狀態和日誌顯示進度與故障。",
+      "detail": [
+        "ISASync 把 ISA frontmatter/criteria 同步到 work.json，deriveAscent 從同一資料衍生顯示狀態。",
+        "工具活動、工具失敗、subagent events 等寫入 JSONL；Pulse 按需讀取尾部並彙整，介面透過 polling 查看。",
+        "Work node 在此指 MEMORY/STATE/work.json 的執行登記，不是把它與 H3 的 GitHub issue 寫成同一份檔案。",
+        "這是運行/診斷關係；可以為工作台使用者投射少量處理狀態，而不暴露原框架全部 hooks 和 telemetry。"
+      ],
+      "evidence": {
+        "basis": [
+          "公開 ISASync 程式",
+          "Observability 資料流文件"
+        ],
+        "assessment": "syncToWorkJson、deriveAscent 有直接程式；JSONL→Pulse 的資料流有明確文件。"
+      },
+      "limitation": "原 hook event、路徑、Pulse daemon 和狀態欄位與 LifeOS/Claude Code 宿主相關，需要薄適配，不能原封不動當成通用 Agent 事件格式。",
+      "adoption": "保留收到/處理中/待確認/已入庫/失敗等少量產品狀態；其餘 telemetry 留在診斷與運維。",
+      "sources": [
+        {
+          "path": "LifeOS/install/hooks/ISASync.hook.ts",
+          "startLine": 1,
+          "endLine": 31,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/hooks/ISASync.hook.ts#L1-L31",
+          "support": "PostToolUse 觸發與 ISA→work.json、共同 derived state 的契約。"
+        },
+        {
+          "path": "LifeOS/install/hooks/ISASync.hook.ts",
+          "startLine": 121,
+          "endLine": 145,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/hooks/ISASync.hook.ts#L121-L145",
+          "support": "實際同步與狀態推導呼叫。"
+        },
+        {
+          "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Observability/ObservabilitySystem.md",
+          "startLine": 9,
+          "endLine": 54,
+          "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Observability/ObservabilitySystem.md#L9-L54",
+          "support": "hooks→JSONL sources→Pulse 按需讀取→dashboard polling 的資料流。"
+        }
+      ]
+    }
+  ],
+  "recommendedCoreEdgeIds": [
+    "H1",
+    "H4",
+    "H6"
+  ],
+  "quickVerify": [
+    {
+      "path": "LifeOS/install/LIFEOS/DOCUMENTATION/ISA/ISASystem.md",
+      "startLine": 269,
+      "endLine": 292,
+      "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ISA/ISASystem.md#L269-L292",
+      "support": "最集中交代 Algorithm/ISA、TELOS→goals→projects→claims、Memory、Hooks、Pulse 的互相角色。"
+    },
+    {
+      "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md",
+      "startLine": 147,
+      "endLine": 172,
+      "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md#L147-L172",
+      "support": "檢查 capture/reviewer→add→proposal→retrieval/context 的可實際對應機制。"
+    },
+    {
+      "path": "LifeOS/install/LIFEOS/TOOLS/WorkSweep.ts",
+      "startLine": 424,
+      "endLine": 486,
+      "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/TOOLS/WorkSweep.ts#L424-L486",
+      "support": "目標無open issue即產生next-action工作項的直接code。"
+    },
+    {
+      "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Synapse/SynapseSystem.md",
+      "startLine": 35,
+      "endLine": 114,
+      "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Synapse/SynapseSystem.md#L35-L114",
+      "support": "核心capture先保存再處理與來源契約；私有邊界另見同檔215–218。"
+    },
+    {
+      "path": "LifeOS/install/LIFEOS/DOCUMENTATION/Hermes/HermesSidecar.md",
+      "startLine": 366,
+      "endLine": 381,
+      "url": "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Hermes/HermesSidecar.md#L366-L381",
+      "support": "Heartbeat scripts ship/wiring does not 的最短直接證據。"
+    }
+  ],
+  "selectionNote": "超邊的優先順序是設計建議，尚非使用者選定的實作範圍；H2/H3為可選的工作管理擴充。"
+}

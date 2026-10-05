@@ -2,9 +2,36 @@
   "name": "cognitive-workbench",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "description": "認知工作台：本機資料、覺察與可替換的資訊處理層",
+  "main": "desktop/dist/main.cjs",
   "scripts": {
     "dev": "bun --cwd frontend run dev",
     "build": "bun --cwd frontend run build",
-    "test": "bun test tests/practices integrations/lifeos/modules/self-awareness.test.ts integrations/lifeos/modules/web-chat.test.ts"
+    "test": "bun test tests/practices integrations/lifeos/modules/self-awareness.test.ts integrations/lifeos/modules/web-chat.test.ts",
+    "desktop:build": "npm --prefix frontend run build && node desktop/build.mjs",
+    "desktop:start": "electron .",
+    "desktop:test": "node --test desktop/tests/*.test.mjs",
+    "desktop:pack": "npm run desktop:build && electron-builder --dir --publish never",
+    "desktop:dist:mac": "npm run desktop:build && electron-builder --mac dmg zip --publish never"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "electron": "44.5.1",
+    "electron-builder": "26.15.3",
+    "esbuild": "^0.25.12"
+  },
+  "build": {
+    "appId": "studio.cognitiveworkbench.desktop",
+    "productName": "認知工作台",
+    "directories": { "output": "desktop/release" },
+    "files": ["desktop/dist/main.cjs", "frontend/out/**/*", "package.json", "LICENSE", "THIRD_PARTY_NOTICES.md", "ARCHITECTURE.md", "docs/architecture/**/*", "desktop/README.md", "desktop/ARCHITECTURE.md", "desktop/docs/**/*"],
+    "asar": true,
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [{ "target": "dmg", "arch": ["arm64"] }, { "target": "zip", "arch": ["arm64"] }]
+    }
   }
 }

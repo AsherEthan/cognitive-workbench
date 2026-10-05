@@ -1,0 +1,649 @@
+{
+  "schemaVersion": 1,
+  "version": "LifeOS v7.40.4",
+  "commit": "be9e8ef889f00a29f4fd677dee4772fdf32e07ce",
+  "repository": "https://github.com/danielmiessler/LifeOS",
+  "componentVersions": {
+    "algorithm": "v8.20.2"
+  },
+  "groupingStatus": "10 家族與 40 個功能葉節點是本次為選型整理的視角；不是官方模組分類，也不是功能總數。",
+  "recommendationStatus": "recommendation 全部是助手建議，不代表使用者已選擇、批准吸收或安排實作。",
+  "implementationStatus": "只讀核對公開發行版、資料模板、註冊表和原始碼；未安裝、運行或驗證使用者機器已啟用任何 LifeOS 功能。",
+  "availabilityLegend": {
+    "程式": "公開發行版找到對應程式／工具；不代表已配置或正在運行。",
+    "資料規則": "Markdown、模板、設定、方法或行為規格；不自行執行。",
+    "視圖": "顯示其他來源資料或狀態；不等於產生該資料的執行引擎。",
+    "外部私有": "依賴外部／個人客製／私有實作；公開版不保證完整可運行。"
+  },
+  "availabilitySeparator": "＋",
+  "counts": {
+    "familyCount": 10,
+    "featureLeafCount": 40,
+    "customFeatureCount": 3
+  },
+  "switchRegistry": {
+    "kind": "Pulse 可切換模組的程式預設值，不是功能數，也不代表實際可用或目前啟用狀態。",
+    "count": 30,
+    "defaultEnabled": 27,
+    "defaultDisabled": 3,
+    "disabledByDefault": [
+      "imessage",
+      "syslog",
+      "da"
+    ],
+    "infrastructureNotInRegistry": [
+      "observability",
+      "hooks",
+      "tab-freshness",
+      "menubar",
+      "siri",
+      "doctor"
+    ],
+    "overrideOrder": [
+      "MODULE_DEFAULTS",
+      "系統 PULSE.toml",
+      "個人 PULSE.user.toml"
+    ],
+    "sources": [
+      "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L4",
+      "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L21"
+    ]
+  },
+  "criticalBoundaries": [
+    {
+      "id": "arbol_private",
+      "label": "Arbol 完整實作未公開",
+      "detail": "官方明言 OSS 不附 workers／flows／actions；本地 runner 也不在公開 payload。",
+      "sources": [
+        "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Arbol/ArbolSystem.md#L9",
+        "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Arbol/ArbolSystem.md#L202"
+      ]
+    },
+    {
+      "id": "bunker_private",
+      "label": "Bunker reference implementation 私有",
+      "detail": "公開版是概念文件和面板接入；Bunker 實作目錄與 CLI 未發布。",
+      "sources": [
+        "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Bunker/BunkerSystem.md#L14"
+      ]
+    },
+    {
+      "id": "assistant_private",
+      "label": "DA Assistant 腳本未公開",
+      "detail": "PULSE.toml 的 Assistant jobs 明確標示因腳本剔除而預設停用；其模組註冊存在不等於完整功能可用。",
+      "sources": [
+        "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L214",
+        "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/pulse.ts"
+      ]
+    },
+    {
+      "id": "historical_schema",
+      "label": "歷史 Schema 不作已實現證據",
+      "detail": "LifeOsSchema.md 明確提示描述布局不是實際安裝布局；以 installed tree 與實作為準。",
+      "sources": [
+        "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/LifeOs/LifeOsSchema.md#L9"
+      ]
+    },
+    {
+      "id": "not_linear",
+      "label": "功能樹不是每次任務的必經流程",
+      "detail": "採用某一功能不代表採用其整個家族或所有跨功能依賴；手動資料管理可完全不經 Agent。",
+      "sources": [
+        "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+      ]
+    }
+  ],
+  "families": [
+    {
+      "id": "direction",
+      "label": "方向與個人模型",
+      "features": [
+        {
+          "id": "personal_profile",
+          "label": "個人身份與偏好",
+          "detail": "人物身份、溝通風格、偏好和長期背景主要由 USER 資料與模板表達；資料夾本身不會主動推理。",
+          "availability": "資料規則",
+          "recommendation": "核心候選",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md"
+          ]
+        },
+        {
+          "id": "telos",
+          "label": "TELOS：使命與方向",
+          "detail": "整理使命、目標、問題、策略、信念、挑戰，供宿主與工具讀取作背景；不是獨立 Agent。",
+          "availability": "資料規則",
+          "recommendation": "核心候選",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/USER/TELOS/README.md"
+          ]
+        },
+        {
+          "id": "current_ideal",
+          "label": "現況與理想狀態",
+          "detail": "以 CURRENT_STATE／IDEAL_STATE 的各領域檔案描述差距；狀態、觀測證據和推測應分开。",
+          "availability": "資料規則＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/USER/TELOS/CURRENT_STATE/README.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/USER/TELOS/IDEAL_STATE/README.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L3409"
+          ]
+        },
+        {
+          "id": "interview_freshness",
+          "label": "訪談補全與資料新鮮度",
+          "detail": "訪談是供 AI 宿主使用的 skill；freshness 工具與 Pulse API 呈現哪些 TELOS 內容需要更新。",
+          "availability": "程式＋資料規則＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L136"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reasoning",
+      "label": "思考、驗證與執行",
+      "features": [
+        {
+          "id": "algorithm",
+          "label": "Algorithm 思考規格",
+          "detail": "以現況到理想狀態及證據核驗組織任務；是宿主遵循的規格和配套工具，非資料夾自己執行。",
+          "availability": "資料規則＋程式",
+          "recommendation": "交給Agent",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ARCHITECTURE_SUMMARY.md"
+          ]
+        },
+        {
+          "id": "isa_criteria",
+          "label": "ISA／ISC：完成條件與證據",
+          "detail": "在任務開始時說清何謂完成，將條件寫成可核驗項目，並記錄支持完成判斷的證據。",
+          "availability": "資料規則＋程式",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ARCHITECTURE_SUMMARY.md"
+          ]
+        },
+        {
+          "id": "skills",
+          "label": "Skills：專門工作方法",
+          "detail": "SKILL.md、工作流程與確定性工具組合成領域能力；依 AI 宿主的技能載入機制使用。",
+          "availability": "資料規則＋程式",
+          "recommendation": "交給Agent",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/skills/Research/SKILL.md"
+          ]
+        },
+        {
+          "id": "arbol",
+          "label": "Arbol：動作、管線與排程",
+          "detail": "Actions／Pipelines／Flows 提供可組合執行模型；公開版明確沒有 Arbol workers、actions、flows 及本地 runner，僅作架構參考。",
+          "availability": "外部私有＋資料規則",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Arbol/ArbolSystem.md#L9",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Arbol/ArbolSystem.md#L202"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "label": "工作、項目與內容",
+      "features": [
+        {
+          "id": "task_capture",
+          "label": "從對話捕獲工作與待辦",
+          "detail": "Algorithm session 同步與 ReminderRouter 將任務、研究、提醒寫入配置好的工作來源；需要宿主 hooks 和實際配置。",
+          "availability": "程式",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/work.ts#L8",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        },
+        {
+          "id": "github_kanban",
+          "label": "GitHub 工作看板",
+          "detail": "Work 模組用 gh 讀取已配置的私有 GitHub Issues，組成看板；未配置時顯示設定提示，離線時返回過期快取。",
+          "availability": "程式＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/work.ts#L8",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L108"
+          ]
+        },
+        {
+          "id": "projects",
+          "label": "項目清單與項目來源",
+          "detail": "Projects API 讀 PROJECTS.md、TELOS 項目段落與已退役清單；本身没有獨立項目資料庫，也不是項目執行器。",
+          "availability": "資料規則＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/projects.ts#L1"
+          ]
+        },
+        {
+          "id": "content_pipeline",
+          "label": "Conveyor 內容生產流程",
+          "detail": "Watcher 與 Runner 寫內容事件台帳；Content 頁顯示階段、請求執行及中止項目，發布保持受控。",
+          "availability": "程式＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/content.ts#L1",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/TOOLS/Conveyor/Ledger.ts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "label": "記憶、知識與學習",
+      "features": [
+        {
+          "id": "hot_memory",
+          "label": "人物與助理的可讀記憶",
+          "detail": "PRINCIPAL_MEMORY 與 DA_MEMORY 作為可閱讀、可檢查的熱記憶；保存的個人知識不應綁定特定 Agent 的私有 session。",
+          "availability": "資料規則＋程式",
+          "recommendation": "核心候選",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/memory.ts#L39"
+          ]
+        },
+        {
+          "id": "memory_curation",
+          "label": "記憶整理與提案審閱",
+          "detail": "公開版有 SessionHarvester、MemoryReviewer／Writer 與學習整理工具；Pulse Memory 頁只觀察狀態、健康與提案，不執行 reviewer 或寫記憶。",
+          "availability": "程式＋視圖",
+          "recommendation": "核心候選",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/memory.ts#L1",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L183",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        },
+        {
+          "id": "knowledge_graph",
+          "label": "知識檢索與關係圖",
+          "detail": "知識筆記、MemoryRetriever、MemoryGraph 與會話學習資料提供檢索和關係視圖；圖譜展示需要先有可用來源。",
+          "availability": "程式＋資料規則＋視圖",
+          "recommendation": "核心候選",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L1496",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/TOOLS/MemoryRetriever.ts"
+          ]
+        },
+        {
+          "id": "books",
+          "label": "書單與閱讀偏好",
+          "detail": "Books 模組只讀 USER 書單並分組顯示書名、作者、評價與主題；不是完整閱讀器或 AI 導讀引擎。",
+          "availability": "資料規則＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/books.ts#L1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capture",
+      "label": "信息捕獲與感測",
+      "features": [
+        {
+          "id": "synapse",
+          "label": "Synapse 捕獲與輸入路由",
+          "detail": "捕獲、保留、評估、分流的概念；Pulse API 聚合外部 amber worker、Cloudflare 書籤統計和本機知識，外部完整流程不隨此模組提供。",
+          "availability": "視圖＋外部私有",
+          "recommendation": "核心候選",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/synapse.ts#L1",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        },
+        {
+          "id": "conduit_capture",
+          "label": "Conduit 活動與日紀錄",
+          "detail": "活動捕獲由獨立 job 執行，Pulse 讀 USER/CONDUIT 的日紀錄；不能把打開儀表板等同啟動感測。",
+          "availability": "程式＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/conduit.ts#L1",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Conduit/ConduitSystem.md"
+          ]
+        },
+        {
+          "id": "conduit_insights",
+          "label": "日彙總與內容洞察",
+          "detail": "Conduit 依已捕獲事件生成日紀錄，顯示快取洞察，並提供手動觸發洞察生成；需要可用資料與推理服務。",
+          "availability": "程式＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/conduit.ts#L1",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/conduit.ts#L55"
+          ]
+        },
+        {
+          "id": "local_intelligence",
+          "label": "在地資訊彙總",
+          "detail": "Pulse Local Intelligence 頁讀取已生成的摘要；資料更新由專門 skill/tool 完成，需要配置所在地與來源。",
+          "availability": "程式＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L130",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/skills/LocalIntelligence/SKILL.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "channels",
+      "label": "對話入口與通知",
+      "features": [
+        {
+          "id": "hermes",
+          "label": "Hermes 可選入口",
+          "detail": "Sidecar 提供另一個對話入口，目標是共享身份、記憶和規則；需安裝、配置相應 runtime，非核心工作台必需。",
+          "availability": "程式＋資料規則",
+          "recommendation": "交給Agent",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Hermes/HermesSidecar.md"
+          ]
+        },
+        {
+          "id": "imessage_siri",
+          "label": "iMessage 與 Siri",
+          "detail": "Pulse 具對應入口模組；iMessage 預設關閉，Siri 與消息入口需各自的本機環境、憑證及宿主。",
+          "availability": "程式",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/pulse.ts#L1",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L55"
+          ]
+        },
+        {
+          "id": "notifications",
+          "label": "語音與訊息通知",
+          "detail": "Pulse 配置語音及 ntfy 等通知路由；實際通知依服務憑證與個人配置，並非僅有設定項就已可用。",
+          "availability": "程式",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L64",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ARCHITECTURE_SUMMARY.md"
+          ]
+        },
+        {
+          "id": "private_da",
+          "label": "DA Assistant 私有子系統",
+          "detail": "Assistant heartbeat、tasks、diary、growth 腳本從公開版移除；配置中預設停用。顯示頁面及身份模板不能當作完整公開實作。",
+          "availability": "資料規則＋視圖＋外部私有",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L214",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/pulse.ts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "life_views",
+      "label": "生活領域視圖",
+      "features": [
+        {
+          "id": "health_view",
+          "label": "健康資料概覽",
+          "detail": "讀 USER/HEALTH 的狀況、用藥、運動、營養、指標等檔案並呈現；不是醫療或穿戴裝置自動接入。",
+          "availability": "資料規則＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L2473",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/USER/HEALTH/README.md"
+          ]
+        },
+        {
+          "id": "finances_view",
+          "label": "財務資料概覽",
+          "detail": "整理收入、支出、帳戶、投資、稅務及 vendor／obligation YAML；没有因頁面存在而自動連接銀行。",
+          "availability": "資料規則＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L2550",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/USER/FINANCES/README.md"
+          ]
+        },
+        {
+          "id": "business_growth_view",
+          "label": "事業與成長概覽",
+          "detail": "事業視图讀 USER 工作／公司資料；Growth 是可選的個人客製工具，不是每個公開安裝都有的完整營運數據管線。",
+          "availability": "資料規則＋視圖＋外部私有",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L46",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L2907"
+          ]
+        },
+        {
+          "id": "gear_air_view",
+          "label": "物品與環境資料概覽",
+          "detail": "展示物品、資產與已有環境／空氣資料；硬件感測器及個人輪詢 job 需要另外配置，不應預設收集。",
+          "availability": "資料規則＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L21",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L4359",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L178"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "observability",
+      "label": "觀測、診斷與成本",
+      "features": [
+        {
+          "id": "pulse_server",
+          "label": "Pulse 統一服務與配置",
+          "detail": "Bun daemon 提供 HTTP API、靜態工作台、定時任務及模組載入。這是可執行程式，与資料目錄、AI 模型不同。",
+          "availability": "程式",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/pulse.ts#L1",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L21"
+          ]
+        },
+        {
+          "id": "run_observability",
+          "label": "任務與 Agent 進度觀測",
+          "detail": "由工作狀態、工具活動、失敗和子 Agent 事件生成儀表板與 SSE 更新；展示觀測到的執行，不等於面板自身是 Agent 引擎。",
+          "availability": "程式＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/Observability/observability.ts#L760",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        },
+        {
+          "id": "usage_performance",
+          "label": "用量、成本與效能",
+          "detail": "Pulse usage／performance 模組及成本聚合 jobs 顯示推理和運行成本；我們可只採用統一任務事件中的必要用量。",
+          "availability": "程式＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L21",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L160",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        },
+        {
+          "id": "diagnostics_freshness",
+          "label": "健康檢查、新鮮度與說明",
+          "detail": "Doctor、healthcheck、tab freshness、wiki/提示用於排錯與解釋數據；這些是服務診斷，不是用戶認知功能本身。",
+          "availability": "程式＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L4",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L168",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "label": "規則、安全與邊界",
+      "features": [
+        {
+          "id": "privacy_boundary",
+          "label": "個人資料與系統規則分界",
+          "detail": "分離可發布系統程式、個人配置與私人內容，建立資料分類和存取邊界；可取原則後自行實現。",
+          "availability": "資料規則",
+          "recommendation": "核心候選",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/SystemUserBoundary.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Security/DataClassification.md"
+          ]
+        },
+        {
+          "id": "hooks_guards",
+          "label": "Hook 與工具執行檢查",
+          "detail": "在 session／工具生命週期的固定事件運行確定性檢查和上下文注入；應由工具與應用邊界落實，不只寫在提示詞內。",
+          "availability": "程式＋資料規則",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/hooks.ts",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ARCHITECTURE_SUMMARY.md"
+          ]
+        },
+        {
+          "id": "threat_models",
+          "label": "威脅模型與風險檢查",
+          "detail": "提供 ThreatModel 相關方法、工具與 Pulse 視圖；與一般任務授權應區分，不需把全部資安研究功能加入認知工作台。",
+          "availability": "資料規則＋程式＋視圖",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L21",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/skills/ThreatModel/SKILL.md"
+          ]
+        },
+        {
+          "id": "network_monitoring",
+          "label": "網路日誌與外部安全掃描",
+          "detail": "Syslog listener 是公開但預設關閉且需設備配置；Arbol／Bunker 的部署面掃描為私有外部基礎設施，兩者不能混為已啟用服務。",
+          "availability": "程式＋視圖＋外部私有",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/PULSE.toml#L120",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Arbol/ArbolSystem.md#L9",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Bunker/BunkerSystem.md#L47"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evolution",
+      "label": "資產與系統演進",
+      "features": [
+        {
+          "id": "atlas",
+          "label": "Atlas 資產與依賴圖",
+          "detail": "公開 CLI 與 collectors 彙整 GitHub、Cloudflare、項目、物品與系統服務，查擁有關係／影響範圍，輸出 Pulse 快照；屬衍生證據。",
+          "availability": "程式＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/ATLAS/Atlas.ts#L3",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/atlas.ts#L1"
+          ]
+        },
+        {
+          "id": "ledger",
+          "label": "Ledger 變更與版本記錄",
+          "detail": "記錄版本、改動、完整性與部署事件；可精簡為我們自己的變更來源、任務結果及內容版本，不必吸收整個部署系統。",
+          "availability": "程式＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ARCHITECTURE_SUMMARY.md",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/TOOLS/LedgerDeployEvent.ts"
+          ]
+        },
+        {
+          "id": "improvement_review",
+          "label": "改進、假設與評估",
+          "detail": "Upgrades 彙整改進記錄與待處理假設，提供接受／拒絕；配合 Evals 評估。接受提案不等於自動修改所有系統代碼。",
+          "availability": "程式＋視圖",
+          "recommendation": "取概念",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/modules/upgrades.ts#L8",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L21",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        },
+        {
+          "id": "bunker",
+          "label": "Bunker 應用運行框架",
+          "detail": "描述資料備份、部署回滾、健康、身份與安全等通用應用需求；公開版只有概念及面板接入，reference implementation 和 CLI 私有。",
+          "availability": "資料規則＋視圖＋外部私有",
+          "recommendation": "延後",
+          "sources": [
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/Bunker/BunkerSystem.md#L14",
+            "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md"
+          ]
+        }
+      ]
+    }
+  ],
+  "customFeatures": [
+    {
+      "id": "custom_awareness",
+      "label": "自有：手動自我覺察",
+      "detail": "cognitive-workbench 新增清楚度、安住度、鬆緊度與筆記 CRUD；不是上游 LifeOS 功能，與本次暫停的自有核心重寫也需區分。",
+      "availability": "程式＋視圖",
+      "recommendation": "核心候選",
+      "sources": [
+        "https://github.com/AsherEthan/cognitive-workbench/blob/4331d74ac1762ad8d9f6e704711006a002682f91/integrations/lifeos/modules/self-awareness.ts",
+        "https://github.com/AsherEthan/cognitive-workbench/blob/4331d74ac1762ad8d9f6e704711006a002682f91/integrations/lifeos/pulse.patch"
+      ]
+    },
+    {
+      "id": "custom_practices",
+      "label": "自有：練習與實踐內容",
+      "detail": "cognitive-workbench 的方法目錄、閱讀內容及相關認知場景；獨立於上游 LifeOS 功能樹呈現。",
+      "availability": "資料規則＋視圖",
+      "recommendation": "核心候選",
+      "sources": [
+        "https://github.com/AsherEthan/cognitive-workbench/blob/4331d74ac1762ad8d9f6e704711006a002682f91/frontend/src/app/practices/page.tsx",
+        "https://github.com/AsherEthan/cognitive-workbench/blob/4331d74ac1762ad8d9f6e704711006a002682f91/frontend/src/lib/palette/nav-manifest.ts"
+      ]
+    },
+    {
+      "id": "custom_chat",
+      "label": "自有：簡單文字對話入口",
+      "detail": "cognitive-workbench 新增的 OpenAI 相容 web-chat；非串流純文字，歷史存於分頁 sessionStorage，未自動讀取 TELOS／覺察資料。",
+      "availability": "程式＋視圖",
+      "recommendation": "取概念",
+      "sources": [
+        "https://github.com/AsherEthan/cognitive-workbench/blob/4331d74ac1762ad8d9f6e704711006a002682f91/frontend/src/app/chat/page.tsx",
+        "https://github.com/AsherEthan/cognitive-workbench/blob/4331d74ac1762ad8d9f6e704711006a002682f91/integrations/lifeos/modules/web-chat.ts"
+      ]
+    }
+  ],
+  "primarySources": [
+    "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/CoreComponents.md",
+    "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/DOCUMENTATION/ARCHITECTURE_SUMMARY.md",
+    "https://github.com/danielmiessler/LifeOS/blob/be9e8ef889f00a29f4fd677dee4772fdf32e07ce/LifeOS/install/LIFEOS/PULSE/lib/modules.ts#L21",
+    "https://github.com/AsherEthan/cognitive-workbench/blob/4331d74ac1762ad8d9f6e704711006a002682f91/integrations/lifeos/source-manifest.json"
+  ],
+  "recommendationNote": "建議僅作取捨起點，尚非使用者決定；核心候選也需依自有模型重新實作，不表示複製上游程式。"
+}

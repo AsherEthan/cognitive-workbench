@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Sparkles, MessageSquare, FolderOpen, X } from "lucide-react";
+import { useDesktopCapabilities } from "@/lib/use-desktop-capabilities";
 
 interface OnboardingState {
   templateMode: boolean;
@@ -14,8 +15,10 @@ const DISMISSED_KEY = "pai:template-onboarding:dismissed";
 export default function TemplateOnboarding() {
   const [state, setState] = useState<OnboardingState | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  const { desktop, pending } = useDesktopCapabilities();
 
   useEffect(() => {
+    if (pending || desktop) return;
     if (typeof window !== "undefined" && window.sessionStorage.getItem(DISMISSED_KEY) === "1") {
       setDismissed(true);
     }
@@ -23,9 +26,9 @@ export default function TemplateOnboarding() {
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => setState(d))
       .catch(() => setState(null));
-  }, []);
+  }, [desktop, pending]);
 
-  if (!state || !state.templateMode || dismissed) return null;
+  if (desktop || pending || !state || !state.templateMode || dismissed) return null;
 
   const handleDismiss = () => {
     window.sessionStorage.setItem(DISMISSED_KEY, "1");

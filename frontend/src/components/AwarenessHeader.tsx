@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Eye, EyeOff, Search, MessageSquarePlus } from "lucide-react";
+import { ChevronDown, Eye, EyeOff, Search, MessageSquarePlus, Settings2 } from "lucide-react";
 import { useObserverMode } from "@/contexts/ObserverModeContext";
 import type { NavItem } from "@/lib/palette/nav-manifest";
 import { pageLabel } from "@/lib/zh-TW";
@@ -15,14 +15,14 @@ const PRIMARY = ["/telos", "/awareness", "/practices", "/life"];
 const PERSONAL = ["/work", "/content", "/health", "/finances", "/business", "/growth", "/local", "/gear", "/books"];
 const KNOWLEDGE = ["/atlas", "/memory", "/synapse", "/agents"];
 
-export default function AwarenessHeader({ items }: { items: NavItem[] }) {
+export default function AwarenessHeader({ items, desktop = false }: { items: NavItem[]; desktop?: boolean }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
   const box = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const { observerMode, toggleObserverMode } = useObserverMode();
   const active = (href: string) => href === "/telos" ? pathname === "/" || pathname.startsWith("/telos") : pathname === href || pathname.startsWith(href + "/");
-  const primaryItems = PRIMARY.flatMap(href => items.find(item => item.href === href) ?? []);
+  const primaryItems = desktop ? items.filter(item => item.href !== "/agent") : PRIMARY.flatMap(href => items.find(item => item.href === href) ?? []);
   const secondaryItems = items.filter(item => !PRIMARY.includes(item.href) && item.href !== "/chat");
   const groups = [
     {label:"生活與行動", items:secondaryItems.filter(item => PERSONAL.includes(item.href))},
@@ -39,14 +39,15 @@ export default function AwarenessHeader({ items }: { items: NavItem[] }) {
   }, [open]);
   return <header className={`${theme.theme} ${styles.header}`} lang="zh-Hant">
     <div className={styles.inner}>
-      <Link className={styles.brand} href="/telos" aria-label="認知工作台首頁"><span className={styles.mark} aria-hidden="true" /><span>認知工作台</span></Link>
-      <nav className={styles.primaryNav} aria-label="主要導覽">{primaryItems.map(item => <Link key={item.href} href={item.href} aria-current={active(item.href) ? "page" : undefined}>{pageLabel(item.href)}</Link>)}</nav>
+      <Link className={styles.brand} href={desktop ? "/awareness" : "/telos"} aria-label="認知工作台首頁"><span className={styles.mark} aria-hidden="true" /><span>認知工作台</span></Link>
+      <nav className={styles.primaryNav} aria-label="主要導覽">{primaryItems.map(item => <Link key={item.href} href={item.href} aria-current={active(item.href) ? "page" : undefined}>{desktop ? item.label : pageLabel(item.href)}</Link>)}</nav>
       <div className={styles.actions} ref={box}>
-        <Link className={styles.inputLink} href="/chat" aria-label="開啟輸入口" aria-current={active("/chat") ? "page" : undefined}><MessageSquarePlus size={15} aria-hidden="true" /><span className={styles.fullLabel}>輸入口</span><span className={styles.compactLabel} aria-hidden="true">輸入</span></Link>
-        <button className={styles.search} onClick={() => openPalette()} aria-label="搜尋工作區與知識" title="搜尋工作區與知識"><Search size={15} /></button>
+        {desktop && items.some(item => item.href === "/agent") && <Link className={styles.inputLink} href="/agent" aria-label="資訊處理層連接與測試" aria-current={active("/agent") ? "page" : undefined}><Settings2 size={15} aria-hidden="true" /><span className={styles.fullLabel}>資訊處理</span><span className={styles.compactLabel} aria-hidden="true">處理層</span></Link>}
+        {!desktop && <Link className={styles.inputLink} href="/chat" aria-label="開啟輸入口" aria-current={active("/chat") ? "page" : undefined}><MessageSquarePlus size={15} aria-hidden="true" /><span className={styles.fullLabel}>輸入口</span><span className={styles.compactLabel} aria-hidden="true">輸入</span></Link>}
+        <button className={styles.search} onClick={() => openPalette()} aria-label={desktop ? "搜尋工作區" : "搜尋工作區與知識"} title={desktop ? "搜尋工作區 · ⌘K" : "搜尋工作區與知識"}><Search size={15} /></button>
         <button className={styles.privacy} aria-label={observerMode ? "顯示個人內容" : "隱藏個人內容"} aria-pressed={observerMode} onClick={toggleObserverMode} title={observerMode ? "顯示個人內容" : "隱藏個人內容"}>{observerMode ? <EyeOff size={15} /> : <Eye size={15} />}<span>{observerMode ? "內容已隱藏" : "隱藏內容"}</span></button>
-        <button className={styles.more} ref={trigger} aria-expanded={open} aria-controls="awareness-workspaces" onClick={() => setOpen(value => !value)}>{primaryItems.some(item => active(item.href)) || active("/chat") ? "所有工作區" : pageLabel(pathname)}<ChevronDown size={14} /></button>
-        {open && <nav id="awareness-workspaces" className={styles.workspaces} aria-label="所有工作區">
+        {!desktop && <button className={styles.more} ref={trigger} aria-expanded={open} aria-controls="awareness-workspaces" onClick={() => setOpen(value => !value)}>{primaryItems.some(item => active(item.href)) || active("/chat") ? "所有工作區" : pageLabel(pathname)}<ChevronDown size={14} /></button>}
+        {!desktop && open && <nav id="awareness-workspaces" className={styles.workspaces} aria-label="所有工作區">
           {groups.filter(group => group.items.length).map(group => <section key={group.label}><h2>{group.label}</h2><div>{group.items.map(item => <Link key={item.href} href={item.href} aria-current={active(item.href) ? "page" : undefined} onClick={() => setOpen(false)}>{pageLabel(item.href)}</Link>)}</div></section>)}
         </nav>}
       </div>

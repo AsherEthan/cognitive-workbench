@@ -2,16 +2,18 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { tier1Nav, systemNav, metaNav } from "@/lib/palette/nav-manifest";
+import { tier1Nav, systemNav, metaNav, desktopNav } from "@/lib/palette/nav-manifest";
 import { useEnabledModules } from "@/lib/use-enabled-modules";
+import { useDesktopCapabilities } from "@/lib/use-desktop-capabilities";
 import { pageLabel } from "@/lib/zh-TW";
 import AwarenessHeader from "@/components/AwarenessHeader";
 
 export default function AppHeader() {
   const pathname = usePathname() || "/";
   const isEnabled = useEnabledModules();
+  const { desktop, pages } = useDesktopCapabilities();
   useEffect(() => {
-    const wanted = `${pageLabel(pathname)} · 認知工作台`;
+    const wanted = `${pathname === "/agent" || pathname.startsWith("/agent/") ? "資訊處理層" : pageLabel(pathname)} · 認知工作台`;
     const update = () => { if (document.title !== wanted) document.title = wanted; };
     update();
     const observer = new MutationObserver(update);
@@ -19,5 +21,6 @@ export default function AppHeader() {
     const timer = setTimeout(() => observer.disconnect(),3000);
     return () => {observer.disconnect(); clearTimeout(timer);};
   }, [pathname]);
-  return <AwarenessHeader items={[...tier1Nav, ...metaNav, ...systemNav].filter(isEnabled)} />;
+  const items = desktop ? desktopNav.filter(item => pages?.includes(item.href)) : [...tier1Nav, ...metaNav, ...systemNav].filter(isEnabled);
+  return <AwarenessHeader items={items} desktop={desktop} />;
 }
