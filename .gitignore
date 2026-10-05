@@ -1,0 +1,22 @@
+# 本機指令、研究與驗證資料
+/AGENTS.md
+/lifeos
+/research/
+/verification/
+
+# 套件、編譯與快取
+**/node_modules
+**/out/
+**/.next/
+*.tsbuildinfo
+coverage/
+**/.DS_Store
+*.log
+
+# 執行時個人資料與金鑰
+.env
+.env.*
+!.env.example
+**/USER/
+**/MEMORY/
+logs/

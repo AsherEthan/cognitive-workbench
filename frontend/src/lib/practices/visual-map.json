@@ -1,0 +1,1520 @@
+{
+  "P01": {
+    "motif": "breath",
+    "seed": 323,
+    "mode": "illustration",
+    "anchor": "注意原本的吸氣與呼氣；走神時輕輕回來，不改變呼吸深淺或速度。"
+  },
+  "P02": {
+    "motif": "scan",
+    "seed": 326,
+    "mode": "illustration",
+    "anchor": "依次注意腳、手、肩膀與臉的感覺，不要求放鬆。"
+  },
+  "P03": {
+    "motif": "rest",
+    "seed": 329,
+    "mode": "illustration",
+    "anchor": "在舒適的位置讓身體獲得支撐，正常呼吸；姿勢可按需要改編並另行標記。"
+  },
+  "P04": {
+    "motif": "walk",
+    "seed": 332,
+    "mode": "illustration",
+    "anchor": "在熟悉、平坦的地方舒服地走動，留意腳底接觸與周圍。"
+  },
+  "P05": {
+    "motif": "kindness",
+    "seed": 335,
+    "mode": "illustration",
+    "anchor": "對自己及容易關心的人作可接受的善意祝願，不要求特定情緒。"
+  },
+  "P06": {
+    "motif": "touch",
+    "seed": 338,
+    "mode": "illustration",
+    "anchor": "輕放手掌或輕撫手掌，感受接觸；不喜歡觸碰可以跳過。"
+  },
+  "P07": {
+    "motif": "breath",
+    "seed": 341,
+    "mode": "illustration",
+    "anchor": "跟隨公開示範感受舒適呼吸的腹部起伏，不刻意吸滿或鼓肚。"
+  },
+  "P08": {
+    "motif": "breath",
+    "seed": 344,
+    "mode": "illustration",
+    "anchor": "保存 AYUSH 的無閉氣入門版本，與含留息、比例或鎖印的版本分開。"
+  },
+  "P09": {
+    "motif": "recite",
+    "seed": 347,
+    "mode": "illustration",
+    "anchor": "輕柔發聲的簡單版本，不用手封閉感官，也不強迫延長呼氣。"
+  },
+  "P10": {
+    "motif": "rest",
+    "seed": 322,
+    "mode": "illustration",
+    "anchor": "跟可靠錄音作身體與呼吸覺察；原文區分 Yoga Nidra 各流派與 iRest，需按版本閱讀。"
+  },
+  "P11": {
+    "motif": "recite",
+    "seed": 325,
+    "mode": "illustration",
+    "anchor": "傳統持咒依原教法；世俗短句另標改編，不承襲整套課程的研究結果。"
+  },
+  "P12": {
+    "motif": "awareness",
+    "seed": 328,
+    "mode": "illustration",
+    "anchor": "跟公開引導留意聲音、觸感與念頭，不把昏沉或短練等同證悟。"
+  },
+  "P13": {
+    "motif": "movement",
+    "seed": 331,
+    "mode": "illustration",
+    "anchor": "受藏式瑜伽啟發的現代改編，先跟可靠示範學合適幅度。"
+  },
+  "P14": {
+    "motif": "movement",
+    "seed": 334,
+    "mode": "illustration",
+    "anchor": "先學適合自己的版本；已學短片段與整套研究介入分開記錄。"
+  },
+  "P15": {
+    "motif": "movement",
+    "seed": 337,
+    "mode": "illustration",
+    "anchor": "先學合適的重心移動或坐式上肢動作，保留站式與坐式的差異。"
+  },
+  "P16": {
+    "motif": "posture",
+    "seed": 340,
+    "mode": "concept",
+    "anchor": "完整站樁先跟教師；支撐坐姿與自然站立覺察另記為日常改編。"
+  },
+  "P17": {
+    "motif": "movement",
+    "seed": 343,
+    "mode": "concept",
+    "anchor": "先跟教師學合適動作，熟悉後選短片段；轉體、彎腰及單腿動作需適配。"
+  },
+  "P18": {
+    "motif": "movement",
+    "seed": 346,
+    "mode": "concept",
+    "anchor": "先學合適幅度；特定頸痛研究的組合介入不代表一般桌前短練。"
+  },
+  "P19": {
+    "motif": "breath",
+    "seed": 349,
+    "mode": "concept",
+    "anchor": "Ligmincha／Tenzin Wangyal 苯教版本，由教師確認鼻孔、姿勢與脈道觀想的完整配合。"
+  },
+  "P20": {
+    "motif": "flow",
+    "seed": 324,
+    "mode": "concept",
+    "anchor": "保存苯教五種配合呼吸停留的練習及正式課程入口，不生成閉氣秒數。"
+  },
+  "P21": {
+    "motif": "movement",
+    "seed": 327,
+    "mode": "concept",
+    "anchor": "此處採 Ligmincha 苯教版本；特定動作、呼吸與注意需循傳承教學。"
+  },
+  "P22": {
+    "motif": "flow",
+    "seed": 330,
+    "mode": "concept",
+    "anchor": "內熱相關的傳統觀想、呼吸與身體訓練，書籍影片不代替教師。"
+  },
+  "P23": {
+    "motif": "flow",
+    "seed": 333,
+    "mode": "concept",
+    "anchor": "保存道家內丹的文本與流派脈絡；丹田與周天另有拆分紀錄。"
+  },
+  "P24": {
+    "motif": "contemplate",
+    "seed": 336,
+    "mode": "concept",
+    "anchor": "按主動選擇的教團學習宗教性的臨在與心的修養。"
+  },
+  "P25": {
+    "motif": "recite",
+    "seed": 339,
+    "mode": "concept",
+    "anchor": "對真主的默念、誦念或其他記念形式，保留各教團與宗教脈絡。"
+  },
+  "P26": {
+    "motif": "touch",
+    "seed": 342,
+    "mode": "concept",
+    "anchor": "保存授受與手位系統的文化及修習資料，不宣稱能量傳遞已獲證實。"
+  },
+  "P27": {
+    "motif": "index",
+    "seed": 345,
+    "mode": "reference",
+    "anchor": "瑜伽方法組索引；各方法分別建檔，初學不自行混成一套練法。"
+  },
+  "P28": {
+    "motif": "rhythm",
+    "seed": 348,
+    "mode": "illustration",
+    "anchor": "選擇容易持續的生活時間安排，先觀察再調整；不自行加入藥物或強制飲食限制。"
+  },
+  "IN01": {
+    "motif": "breath",
+    "seed": 569,
+    "mode": "concept",
+    "anchor": "原文區分含留息的古典喉音呼吸與現代無閉氣版；需按版本閱讀，並由教師確認實際做法。"
+  },
+  "IN02": {
+    "motif": "breath",
+    "seed": 573,
+    "mode": "concept",
+    "anchor": "舌部形成進氣通道、經口吸入；古典及現代版是否留息須分清，再循教師示範學習。"
+  },
+  "IN03": {
+    "motif": "breath",
+    "seed": 577,
+    "mode": "concept",
+    "anchor": "以口腔與舌齒姿勢配合嘶聲吸氣，口形隨版本有差異，學習時選定一個來源。"
+  },
+  "IN04": {
+    "motif": "breath",
+    "seed": 581,
+    "mode": "concept",
+    "anchor": "古典右吸左呼並配留息，僅保存概要與正式學習路徑。"
+  },
+  "IN05": {
+    "motif": "breath",
+    "seed": 585,
+    "mode": "concept",
+    "anchor": "左吸右呼；同側左鼻孔吸呼的 Chandra Anuloma-Viloma 另列變體。"
+  },
+  "IN06": {
+    "motif": "breath",
+    "seed": 589,
+    "mode": "concept",
+    "anchor": "先記吸、吸後停、呼、呼後停是否存在，再記各段比例，由教師依能力安排。"
+  },
+  "IN07": {
+    "motif": "breath",
+    "seed": 593,
+    "mode": "concept",
+    "anchor": "強力吸呼，有配留息與鎖印的版本，按合格教學及個人條件學習。"
+  },
+  "IN08": {
+    "motif": "breath",
+    "seed": 597,
+    "mode": "concept",
+    "anchor": "AYUSH 入門著重主動腹部呼氣；早期英譯描述較似快速風箱，須記教本版本。"
+  },
+  "IN09": {
+    "motif": "breath",
+    "seed": 601,
+    "mode": "concept",
+    "anchor": "分吸後 antar、呼後 bāhya；sahita、kevala 為另一種分類。記錄實際版本，由教師安排。"
+  },
+  "IN10": {
+    "motif": "gaze",
+    "seed": 568,
+    "mode": "concept",
+    "anchor": "原文區分古典小目標凝視、現代蠟燭或黑點版本，以及允許自然眨眼的柔和改編；需按版本閱讀。"
+  },
+  "IN11": {
+    "motif": "recite",
+    "seed": 572,
+    "mode": "concept",
+    "anchor": "以聲音攝心，古典內聲與禪定歷程循該傳承學習。"
+  },
+  "IN12": {
+    "motif": "withdraw",
+    "seed": 576,
+    "mode": "concept",
+    "anchor": "學不追逐感官對象，與姿勢、調息及專注相配合。"
+  },
+  "IN13": {
+    "motif": "posture",
+    "seed": 580,
+    "mode": "illustration",
+    "anchor": "拇指食指輕觸，其餘手指放鬆，掌心向上置於腿上；姿勢不舒服可放下。"
+  },
+  "IN14": {
+    "motif": "posture",
+    "seed": 584,
+    "mode": "illustration",
+    "anchor": "以手部遮蔽部分感官入口、配合蜂鳴，先看合格示範。"
+  },
+  "IN15": {
+    "motif": "posture",
+    "seed": 588,
+    "mode": "concept",
+    "anchor": "下部收束與特定姿勢、呼吸配合，保存正式學習入口。"
+  },
+  "IN16": {
+    "motif": "posture",
+    "seed": 592,
+    "mode": "concept",
+    "anchor": "腹部回收、上提與呼吸階段配合，循教師面授。"
+  },
+  "IN17": {
+    "motif": "posture",
+    "seed": 596,
+    "mode": "concept",
+    "anchor": "頸喉位置與呼吸保持協同，由教師調整。"
+  },
+  "IN18": {
+    "motif": "movement",
+    "seed": 600,
+    "mode": "concept",
+    "anchor": "循特定序列學連續體位與呼吸，評估承重及轉位能力。"
+  },
+  "IN19": {
+    "motif": "rest",
+    "seed": 604,
+    "mode": "concept",
+    "anchor": "以抱枕、毯、椅等支撐多個姿勢，由教師選合適支撐；不是單一攤屍式。"
+  },
+  "IN20": {
+    "motif": "touch",
+    "seed": 571,
+    "mode": "illustration",
+    "anchor": "全身或局部施油按摩，先學用油、溫度、力度與適用條件。"
+  },
+  "IN21": {
+    "motif": "touch",
+    "seed": 575,
+    "mode": "illustration",
+    "anchor": "依合適教學作足部按摩；普通輕柔自撫另記改編。"
+  },
+  "IN22": {
+    "motif": "index",
+    "seed": 579,
+    "mode": "reference",
+    "anchor": "原文區分 Jala neti 水洗與 Sutra neti 穿線；水洗轉介正規鼻腔沖洗衛教，穿線只作歷史索引。"
+  },
+  "IN23": {
+    "motif": "index",
+    "seed": 583,
+    "mode": "reference",
+    "anchor": "本輪確證吞布型 vastra-dhauti；保存操作性質及歷史位置，不提供侵入性腳本。"
+  },
+  "IN24": {
+    "motif": "index",
+    "seed": 587,
+    "mode": "reference",
+    "anchor": "保存下消化道灌洗的歷史描述，無自助處方。"
+  },
+  "IN25": {
+    "motif": "movement",
+    "seed": 591,
+    "mode": "concept",
+    "anchor": "腹肌分離、旋動類操作，由教師確認準備與個人條件。"
+  },
+  "CN01": {
+    "motif": "recite",
+    "seed": 563,
+    "mode": "concept",
+    "anchor": "呼氣字音配合動作與注意；子項為噓 xū、呵 hē、呼 hū、呬 sī、吹 chuī、嘻 xī。先學該版本口型與呼吸。"
+  },
+  "CN02": {
+    "motif": "movement",
+    "seed": 567,
+    "mode": "concept",
+    "anchor": "依正式教學逐式學脊柱、四肢屈伸與轉動及注意配合。"
+  },
+  "CN03": {
+    "motif": "movement",
+    "seed": 571,
+    "mode": "concept",
+    "anchor": "原文區分完整套路與展演縮編版；本筆合併保存兩者，需按版本閱讀，不能把縮編視為必然較易。"
+  },
+  "CN04": {
+    "motif": "movement",
+    "seed": 575,
+    "mode": "concept",
+    "anchor": "依教師學髖、腰、脊柱及連續動作，保留節奏和鬆緊配合。"
+  },
+  "CN05": {
+    "motif": "movement",
+    "seed": 579,
+    "mode": "concept",
+    "anchor": "由正式課程學坐姿、頸部與上肢動作、叩齒鳴鼓、鼓漱吞津等組件。"
+  },
+  "CN06": {
+    "motif": "movement",
+    "seed": 583,
+    "mode": "concept",
+    "anchor": "依教學學握杖、協調轉動及屈伸；不是太極拳的別名。"
+  },
+  "CN07": {
+    "motif": "oral",
+    "seed": 587,
+    "mode": "concept",
+    "anchor": "保存於該坐式套路的組合脈絡，跟隨完整教學理解。"
+  },
+  "CN08": {
+    "motif": "oral",
+    "seed": 591,
+    "mode": "concept",
+    "anchor": "口腔動作與吞嚥唾液的傳統組件，依完整套路教學。"
+  },
+  "CN09": {
+    "motif": "awareness",
+    "seed": 595,
+    "mode": "reference",
+    "anchor": "先讀虛心應物的文本脈絡；若轉成聆聽、放下預設等日常練習，另標現代改編。"
+  },
+  "CN10": {
+    "motif": "awareness",
+    "seed": 562,
+    "mode": "concept",
+    "anchor": "《坐忘論》有信敬、斷緣、收心、簡事、真觀、泰定、得道七項；循原典與教師解釋學習。"
+  },
+  "CN11": {
+    "motif": "withdraw",
+    "seed": 566,
+    "mode": "reference",
+    "anchor": "分辨對一的體認與後來內神觀想，先作傳承及文本學習。"
+  },
+  "CN12": {
+    "motif": "visualize",
+    "seed": 570,
+    "mode": "concept",
+    "anchor": "先理解內神意象及其文本脈絡，按選定的傳統學習。"
+  },
+  "CN13": {
+    "motif": "awareness",
+    "seed": 574,
+    "mode": "concept",
+    "anchor": "保存澄清心念、觀察執取的修持路線，按原典及合適教學學習。"
+  },
+  "CN14": {
+    "motif": "breath",
+    "seed": 578,
+    "mode": "reference",
+    "anchor": "記錄吐納、行氣、調氣及具體版本，先區分自然覺察與有意調控。"
+  },
+  "CN15": {
+    "motif": "flow",
+    "seed": 582,
+    "mode": "concept",
+    "anchor": "本輪官方版本可核到注意維持在丹田區域；完整內丹用法另帶傳承來源。"
+  },
+  "CN16": {
+    "motif": "flow",
+    "seed": 586,
+    "mode": "concept",
+    "anchor": "按文本與流派保存煉養及循行模型，循正式學習理解其目的。"
+  },
+  "TS01": {
+    "motif": "kindness",
+    "seed": 590,
+    "mode": "illustration",
+    "anchor": "辨識痛苦，以象徵性的取苦予樂觀想，再向更多眾生擴展。依作者公開引導學習。"
+  },
+  "TS02": {
+    "motif": "recite",
+    "seed": 594,
+    "mode": "illustration",
+    "anchor": "以慈悲動機持誦 Oṃ Maṇi Padme Hūṃ，從該機構的發音、解說與音檔學習。"
+  },
+  "TS03": {
+    "motif": "visualize",
+    "seed": 598,
+    "mode": "concept",
+    "anchor": "除持咒外加入本尊與儀軌觀想，依此版本教材與合格教師學習。"
+  },
+  "TS04": {
+    "motif": "recite",
+    "seed": 602,
+    "mode": "illustration",
+    "anchor": "A、OM、HUNG、RAM、DZA，配合聲音、位置、色光與正向品質，依原教案學習。"
+  },
+  "TS05": {
+    "motif": "recite",
+    "seed": 606,
+    "mode": "concept",
+    "anchor": "循官方課程學發音、意義、祈願與相關禪修；也可作前行的一部分。"
+  },
+  "TS06": {
+    "motif": "kindness",
+    "seed": 610,
+    "mode": "illustration",
+    "anchor": "安住、祈請、光明意象、咒語與回向，依公開簡軌保存順序及宗教含義。"
+  },
+  "TS07": {
+    "motif": "dream",
+    "seed": 614,
+    "mode": "concept",
+    "anchor": "把白日覺察、睡前準備與夢中修持相連，循該傳承課程學習。"
+  },
+  "TS08": {
+    "motif": "rest",
+    "seed": 618,
+    "mode": "concept",
+    "anchor": "以分階段的姿勢、呼吸與觀想教學，連接入睡與明光修持。"
+  },
+  "TS09": {
+    "motif": "ritual",
+    "seed": 622,
+    "mode": "concept",
+    "anchor": "循正式課程學九項前行；禮拜、供養等另有示範，見下方完整九項索引。"
+  },
+  "TS10": {
+    "motif": "movement",
+    "seed": 589,
+    "mode": "concept",
+    "anchor": "特定姿勢、動作、節奏與呼吸系統，從該傳承初階課程學習。"
+  },
+  "TS11": {
+    "motif": "breath",
+    "seed": 593,
+    "mode": "concept",
+    "anchor": "原文區分 Lung Ro Salwa 九次淨化呼吸與節律呼吸；本筆合併保存兩者，需按各自版本與教學閱讀。"
+  },
+  "TS12": {
+    "motif": "movement",
+    "seed": 597,
+    "mode": "concept",
+    "anchor": "依合格教員學身形、動作、呼吸與覺察，按身體條件選擇幅度。"
+  },
+  "TS13": {
+    "motif": "movement",
+    "seed": 601,
+    "mode": "illustration",
+    "anchor": "溫和動作、自我按摩、感受與禪修，依此體系公開課程學習。"
+  },
+  "TS14": {
+    "motif": "movement",
+    "seed": 605,
+    "mode": "concept",
+    "anchor": "依教師學結合象徵性劍具與臨在的動態練習。"
+  },
+  "TS15": {
+    "motif": "flow",
+    "seed": 609,
+    "mode": "concept",
+    "anchor": "循所選教團教師指導，學注意、宗教覺知與細微官能的關係。"
+  },
+  "TS16": {
+    "motif": "ritual",
+    "seed": 613,
+    "mode": "concept",
+    "anchor": "了解該傳統中精神教導與師徒關係的傳授脈絡。"
+  },
+  "TS17": {
+    "motif": "rotate",
+    "seed": 617,
+    "mode": "concept",
+    "anchor": "從特定教團的旋轉訓練進入正式儀式，依教師調整技術與耐力。"
+  },
+  "TS18": {
+    "motif": "posture",
+    "seed": 621,
+    "mode": "illustration",
+    "anchor": "合掌，以手指接觸作注意提示，走神時返回，依文章或教師教法學習。"
+  },
+  "TS19": {
+    "motif": "movement",
+    "seed": 625,
+    "mode": "illustration",
+    "anchor": "一版含 Kenyoku 乾浴、Joshin Kokyu 淨心呼吸、Seishin Toitsu 精神統一；另一版含和歌省思與 Byosen，依相應版本學習。"
+  },
+  "TS20": {
+    "motif": "kindness",
+    "seed": 592,
+    "mode": "reference",
+    "anchor": "三人象徵連結、光與善意網絡的觀想，以及祈請文，依該組織原教學理解。"
+  },
+  "B01": {
+    "motif": "scan",
+    "seed": 309,
+    "mode": "reference",
+    "anchor": "呼吸、行住坐臥、日常動作正知，以及身體部分、四界、墓園觀察等"
+  },
+  "B02": {
+    "motif": "awareness",
+    "seed": 312,
+    "mode": "reference",
+    "anchor": "辨別樂、苦、不苦不樂的感受，觀察其變化"
+  },
+  "B03": {
+    "motif": "awareness",
+    "seed": 315,
+    "mode": "reference",
+    "anchor": "辨認貪瞋等心態、散亂或定等狀態"
+  },
+  "B04": {
+    "motif": "awareness",
+    "seed": 318,
+    "mode": "reference",
+    "anchor": "五蓋、五取蘊、內外六處、七覺支與四聖諦等框架"
+  },
+  "B05": {
+    "motif": "index",
+    "seed": 321,
+    "mode": "reference",
+    "anchor": "依身、受、心、法四組保存同一修習架構的十六個環節，不計為十六套呼吸操。"
+  },
+  "B06": {
+    "motif": "kindness",
+    "seed": 324,
+    "mode": "reference",
+    "anchor": "慈、悲、喜、捨四種修習的分類與學習路線，不以特定情緒判定成功。"
+  },
+  "B07": {
+    "motif": "index",
+    "seed": 327,
+    "mode": "reference",
+    "anchor": "保存《清淨道論》的四十業處完整名稱與界線，作傳統知識索引，不生成四十套自助操作。"
+  },
+  "INC01": {
+    "motif": "breath",
+    "seed": 867,
+    "mode": "reference",
+    "anchor": "古典名稱與調息類別已核得；本輪只保存歷史索引，未核定可自行操作的版本。"
+  },
+  "INC02": {
+    "motif": "breath",
+    "seed": 872,
+    "mode": "reference",
+    "anchor": "古典名稱與調息類別已核得；本輪只保存歷史索引，未核定可自行操作的版本。"
+  },
+  "INC03": {
+    "motif": "posture",
+    "seed": 877,
+    "mode": "reference",
+    "anchor": "古典十印的名稱索引已核得；各版流程仍待專題核查，不提供自行操作指引。"
+  },
+  "INC04": {
+    "motif": "posture",
+    "seed": 882,
+    "mode": "reference",
+    "anchor": "古典十印的名稱索引已核得；各版流程仍待專題核查，不提供自行操作指引。"
+  },
+  "INC05": {
+    "motif": "posture",
+    "seed": 887,
+    "mode": "reference",
+    "anchor": "古典十印的名稱索引已核得；各版流程仍待專題核查，不提供自行操作指引。"
+  },
+  "INC06": {
+    "motif": "posture",
+    "seed": 892,
+    "mode": "reference",
+    "anchor": "古典十印的名稱索引已核得；各版流程仍待專題核查，不提供自行操作指引。"
+  },
+  "INC07": {
+    "motif": "posture",
+    "seed": 897,
+    "mode": "reference",
+    "anchor": "古典十印的名稱索引已核得；各版流程仍待專題核查，不提供自行操作指引。"
+  },
+  "INC08": {
+    "motif": "posture",
+    "seed": 902,
+    "mode": "reference",
+    "anchor": "古典十印的名稱索引已核得；各版流程仍待專題核查，不提供自行操作指引。"
+  },
+  "INC09": {
+    "motif": "posture",
+    "seed": 907,
+    "mode": "reference",
+    "anchor": "古典十印的名稱索引已核得；各版流程仍待專題核查，不提供自行操作指引。"
+  },
+  "INC10": {
+    "motif": "index",
+    "seed": 866,
+    "mode": "reference",
+    "anchor": "古典文獻中的歷史記述已見；具體版本與操作仍待專題核查，不據此提供自行操作。"
+  },
+  "INC11": {
+    "motif": "index",
+    "seed": 871,
+    "mode": "reference",
+    "anchor": "已辨識的淨化法名稱或亞型線索；仍須與相關原典逐項對讀，尚未完成版本和操作核查。"
+  },
+  "INC12": {
+    "motif": "index",
+    "seed": 876,
+    "mode": "reference",
+    "anchor": "已辨識的淨化法名稱或亞型線索；仍須與相關原典逐項對讀，尚未完成版本和操作核查。"
+  },
+  "INC13": {
+    "motif": "index",
+    "seed": 881,
+    "mode": "reference",
+    "anchor": "已辨識的淨化法名稱或亞型線索；仍須與相關原典逐項對讀，尚未完成版本和操作核查。"
+  },
+  "INC14": {
+    "motif": "breath",
+    "seed": 886,
+    "mode": "reference",
+    "anchor": "已辨識的淨化法名稱或亞型線索；仍須與相關原典逐項對讀，尚未完成版本和操作核查。"
+  },
+  "INC15": {
+    "motif": "breath",
+    "seed": 891,
+    "mode": "reference",
+    "anchor": "呼吸組合已有來源線索；各版本的比例、鼻孔路徑與喉音配合尚未逐筆核清。"
+  },
+  "INC16": {
+    "motif": "breath",
+    "seed": 896,
+    "mode": "reference",
+    "anchor": "呼吸組合已有來源線索；各版本的比例、鼻孔路徑與喉音配合尚未逐筆核清。"
+  },
+  "INC17": {
+    "motif": "breath",
+    "seed": 901,
+    "mode": "reference",
+    "anchor": "呼吸組合已有來源線索；各版本的比例、鼻孔路徑與喉音配合尚未逐筆核清。"
+  },
+  "INC18": {
+    "motif": "breath",
+    "seed": 906,
+    "mode": "reference",
+    "anchor": "呼吸組合已有來源線索；各版本的比例、鼻孔路徑與喉音配合尚未逐筆核清。"
+  },
+  "INC19": {
+    "motif": "breath",
+    "seed": 911,
+    "mode": "reference",
+    "anchor": "呼吸組合已有來源線索；各版本的比例、鼻孔路徑與喉音配合尚未逐筆核清。"
+  },
+  "INC20": {
+    "motif": "recite",
+    "seed": 870,
+    "mode": "reference",
+    "anchor": "已辨識的持咒或觀修名稱；具體流派、原教案與學習資格尚未核齊，不補造通用操作。"
+  },
+  "INC21": {
+    "motif": "recite",
+    "seed": 875,
+    "mode": "reference",
+    "anchor": "已辨識的持咒或觀修名稱；具體流派、原教案與學習資格尚未核齊，不補造通用操作。"
+  },
+  "INC22": {
+    "motif": "visualize",
+    "seed": 880,
+    "mode": "reference",
+    "anchor": "已辨識的持咒或觀修名稱；具體流派、原教案與學習資格尚未核齊，不補造通用操作。"
+  },
+  "INC23": {
+    "motif": "flow",
+    "seed": 885,
+    "mode": "reference",
+    "anchor": "已辨識的持咒或觀修名稱；具體流派、原教案與學習資格尚未核齊，不補造通用操作。"
+  },
+  "INC24": {
+    "motif": "touch",
+    "seed": 890,
+    "mode": "reference",
+    "anchor": "已辨識的日常護理名稱；與按摩或攝養相關，但各方法的版本與流程尚未逐一建檔核查。"
+  },
+  "INC25": {
+    "motif": "touch",
+    "seed": 895,
+    "mode": "reference",
+    "anchor": "已辨識的日常護理名稱；與按摩或攝養相關，但各方法的版本與流程尚未逐一建檔核查。"
+  },
+  "INC26": {
+    "motif": "touch",
+    "seed": 900,
+    "mode": "reference",
+    "anchor": "已辨識的日常護理名稱；與按摩或攝養相關，但各方法的版本與流程尚未逐一建檔核查。"
+  },
+  "INC27": {
+    "motif": "rhythm",
+    "seed": 905,
+    "mode": "reference",
+    "anchor": "已辨識的日常護理名稱；與按摩或攝養相關，但各方法的版本與流程尚未逐一建檔核查。"
+  },
+  "INC28": {
+    "motif": "index",
+    "seed": 910,
+    "mode": "reference",
+    "anchor": "此組部分原典護理有據；本項完整現代流程與適用條件仍待逐項核驗，不列作自助練習。"
+  },
+  "INC29": {
+    "motif": "oral",
+    "seed": 915,
+    "mode": "reference",
+    "anchor": "此組部分原典護理有據；本項完整現代流程與適用條件仍待逐項核驗，不列作自助練習。"
+  },
+  "INC30": {
+    "motif": "oral",
+    "seed": 874,
+    "mode": "reference",
+    "anchor": "此組部分原典護理有據；本項完整現代流程與適用條件仍待逐項核驗，不列作自助練習。"
+  },
+  "INC31": {
+    "motif": "touch",
+    "seed": 879,
+    "mode": "reference",
+    "anchor": "此組部分原典護理有據；本項完整現代流程與適用條件仍待逐項核驗，不列作自助練習。"
+  },
+  "INC32": {
+    "motif": "rhythm",
+    "seed": 884,
+    "mode": "reference",
+    "anchor": "此組部分原典護理有據；本項完整現代流程與適用條件仍待逐項核驗，不列作自助練習。"
+  },
+  "INC33": {
+    "motif": "index",
+    "seed": 889,
+    "mode": "reference",
+    "anchor": "此組部分原典護理有據；本項完整現代流程與適用條件仍待逐項核驗，不列作自助練習。"
+  },
+  "CNC01": {
+    "motif": "movement",
+    "seed": 861,
+    "mode": "reference",
+    "anchor": "官方目錄中的名稱與版本已核讀；操作與適用條件尚未逐項核齊，不據此宣稱療效。"
+  },
+  "CNC02": {
+    "motif": "movement",
+    "seed": 866,
+    "mode": "reference",
+    "anchor": "官方目錄中的名稱與版本已核讀；操作與適用條件尚未逐項核齊，不據此宣稱療效。"
+  },
+  "CNC03": {
+    "motif": "movement",
+    "seed": 871,
+    "mode": "reference",
+    "anchor": "官方目錄中的名稱與版本已核讀；操作與適用條件尚未逐項核齊，不據此宣稱療效。"
+  },
+  "CNC04": {
+    "motif": "movement",
+    "seed": 876,
+    "mode": "reference",
+    "anchor": "官方目錄中的名稱與版本已核讀；操作與適用條件尚未逐項核齊，不據此宣稱療效。"
+  },
+  "CNC05": {
+    "motif": "movement",
+    "seed": 881,
+    "mode": "reference",
+    "anchor": "官方目錄中的名稱與版本已核讀；操作與適用條件尚未逐項核齊，不據此宣稱療效。"
+  },
+  "CNC06": {
+    "motif": "breath",
+    "seed": 886,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC07": {
+    "motif": "breath",
+    "seed": 891,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC08": {
+    "motif": "breath",
+    "seed": 896,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC09": {
+    "motif": "index",
+    "seed": 901,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC10": {
+    "motif": "index",
+    "seed": 860,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC11": {
+    "motif": "contemplate",
+    "seed": 865,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC12": {
+    "motif": "contemplate",
+    "seed": 870,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC13": {
+    "motif": "walk",
+    "seed": 875,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC14": {
+    "motif": "walk",
+    "seed": 880,
+    "mode": "reference",
+    "anchor": "歷史類型已有已核讀的學術來源；各派操作仍未完整建卡，不據名稱生成練習程序。"
+  },
+  "CNC15": {
+    "motif": "movement",
+    "seed": 885,
+    "mode": "reference",
+    "anchor": "部分名稱與器械歷史已核讀；與現代太極養生杖分開，特定流派做法仍待核查。"
+  },
+  "CNC16": {
+    "motif": "movement",
+    "seed": 890,
+    "mode": "reference",
+    "anchor": "部分名稱與器械歷史已核讀；與現代太極養生杖分開，特定流派做法仍待核查。"
+  },
+  "CNC17": {
+    "motif": "touch",
+    "seed": 895,
+    "mode": "reference",
+    "anchor": "已找到醫院資料線索，但正文取得逾時；未以搜尋摘要補寫時長、操作或療效。"
+  },
+  "CNC18": {
+    "motif": "touch",
+    "seed": 900,
+    "mode": "reference",
+    "anchor": "已保存待查名稱，但尚未核得足夠方法來源；不憑常識補造動作、次數或效果。"
+  },
+  "CNC19": {
+    "motif": "touch",
+    "seed": 905,
+    "mode": "reference",
+    "anchor": "已保存待查名稱，但尚未核得足夠方法來源；不憑常識補造動作、次數或效果。"
+  },
+  "CNC20": {
+    "motif": "touch",
+    "seed": 864,
+    "mode": "reference",
+    "anchor": "已保存待查名稱，但尚未核得足夠方法來源；不憑常識補造動作、次數或效果。"
+  },
+  "CNC21": {
+    "motif": "touch",
+    "seed": 869,
+    "mode": "reference",
+    "anchor": "已保存待查名稱，但尚未核得足夠方法來源；不憑常識補造動作、次數或效果。"
+  },
+  "CNC22": {
+    "motif": "touch",
+    "seed": 874,
+    "mode": "reference",
+    "anchor": "已保存待查名稱，但尚未核得足夠方法來源；不憑常識補造動作、次數或效果。"
+  },
+  "CNC23": {
+    "motif": "recite",
+    "seed": 879,
+    "mode": "reference",
+    "anchor": "已保存待查名稱，但尚未核得足夠方法來源；不憑常識補造動作、次數或效果。"
+  },
+  "CNC24": {
+    "motif": "touch",
+    "seed": 884,
+    "mode": "reference",
+    "anchor": "已保存待查名稱，但尚未核得足夠方法來源；不憑常識補造動作、次數或效果。"
+  },
+  "CNC25": {
+    "motif": "posture",
+    "seed": 889,
+    "mode": "reference",
+    "anchor": "方法名稱已辨識，但版本資料仍不足；需補具體教材、編者或傳承與完整步驟。"
+  },
+  "CNC26": {
+    "motif": "rest",
+    "seed": 894,
+    "mode": "reference",
+    "anchor": "方法名稱已辨識，但版本資料仍不足；需補具體教材、編者或傳承與完整步驟。"
+  },
+  "CNC27": {
+    "motif": "posture",
+    "seed": 899,
+    "mode": "reference",
+    "anchor": "方法名稱已辨識，但版本資料仍不足；需補具體教材、編者或傳承與完整步驟。"
+  },
+  "CNC28": {
+    "motif": "movement",
+    "seed": 904,
+    "mode": "reference",
+    "anchor": "方法名稱已辨識，但版本資料仍不足；需補具體教材、編者或傳承與完整步驟。"
+  },
+  "CNC29": {
+    "motif": "posture",
+    "seed": 909,
+    "mode": "reference",
+    "anchor": "方法名稱已辨識，但版本資料仍不足；需補具體教材、編者或傳承與完整步驟。"
+  },
+  "TSC01": {
+    "motif": "ritual",
+    "seed": 888,
+    "mode": "reference",
+    "anchor": "官方總覽已有名稱與脈絡；各版原教案、資格與步驟尚未逐一核齊，只保留文獻入口。"
+  },
+  "TSC02": {
+    "motif": "ritual",
+    "seed": 893,
+    "mode": "reference",
+    "anchor": "官方總覽已有名稱與脈絡；各版原教案、資格與步驟尚未逐一核齊，只保留文獻入口。"
+  },
+  "TSC03": {
+    "motif": "ritual",
+    "seed": 898,
+    "mode": "reference",
+    "anchor": "官方總覽已有名稱與脈絡；各版原教案、資格與步驟尚未逐一核齊，只保留文獻入口。"
+  },
+  "TSC04": {
+    "motif": "ritual",
+    "seed": 903,
+    "mode": "reference",
+    "anchor": "官方課程架構已有記錄；獨立法與複合課程子項的界線及具體版本仍待補核。"
+  },
+  "TSC05": {
+    "motif": "visualize",
+    "seed": 908,
+    "mode": "reference",
+    "anchor": "官方課程架構已有記錄；獨立法與複合課程子項的界線及具體版本仍待補核。"
+  },
+  "TSC06": {
+    "motif": "ritual",
+    "seed": 913,
+    "mode": "reference",
+    "anchor": "官方課程架構已有記錄；獨立法與複合課程子項的界線及具體版本仍待補核。"
+  },
+  "TSC07": {
+    "motif": "withdraw",
+    "seed": 918,
+    "mode": "reference",
+    "anchor": "官方課程架構已有記錄；獨立法與複合課程子項的界線及具體版本仍待補核。"
+  },
+  "TSC08": {
+    "motif": "ritual",
+    "seed": 923,
+    "mode": "reference",
+    "anchor": "官方已區分傳統儀式與公開改編；兩者不可合併，各自做法仍需分別核查。"
+  },
+  "TSC09": {
+    "motif": "ritual",
+    "seed": 928,
+    "mode": "reference",
+    "anchor": "官方已區分傳統儀式與公開改編；兩者不可合併，各自做法仍需分別核查。"
+  },
+  "TSC10": {
+    "motif": "visualize",
+    "seed": 887,
+    "mode": "reference",
+    "anchor": "官方總覽可查到名稱；尚未完成該版本操作核查，不以名稱推造觀想、持咒或療效。"
+  },
+  "TSC11": {
+    "motif": "visualize",
+    "seed": 892,
+    "mode": "reference",
+    "anchor": "官方總覽可查到名稱；尚未完成該版本操作核查，不以名稱推造觀想、持咒或療效。"
+  },
+  "TSC12": {
+    "motif": "awareness",
+    "seed": 897,
+    "mode": "reference",
+    "anchor": "目前僅保存進階學習線索，資料不足以建立操作卡；不生成感官剝奪或凝視太陽等處方。"
+  },
+  "TSC13": {
+    "motif": "awareness",
+    "seed": 902,
+    "mode": "reference",
+    "anchor": "目前僅保存進階學習線索，資料不足以建立操作卡；不生成感官剝奪或凝視太陽等處方。"
+  },
+  "TSC14": {
+    "motif": "awareness",
+    "seed": 907,
+    "mode": "reference",
+    "anchor": "目前僅保存進階學習線索，資料不足以建立操作卡；不生成感官剝奪或凝視太陽等處方。"
+  },
+  "TSC15": {
+    "motif": "awareness",
+    "seed": 912,
+    "mode": "reference",
+    "anchor": "目前僅保存進階學習線索，資料不足以建立操作卡；不生成感官剝奪或凝視太陽等處方。"
+  },
+  "TSC16": {
+    "motif": "gaze",
+    "seed": 917,
+    "mode": "reference",
+    "anchor": "目前僅保存進階學習線索，資料不足以建立操作卡；不生成感官剝奪或凝視太陽等處方。"
+  },
+  "TSC17": {
+    "motif": "movement",
+    "seed": 922,
+    "mode": "reference",
+    "anchor": "已搜尋到官方文字，但部分原頁開啟空白；只保存名稱與缺口，不把摘要當作操作全文。"
+  },
+  "TSC18": {
+    "motif": "movement",
+    "seed": 927,
+    "mode": "reference",
+    "anchor": "已搜尋到官方文字，但部分原頁開啟空白；只保存名稱與缺口，不把摘要當作操作全文。"
+  },
+  "TSC19": {
+    "motif": "movement",
+    "seed": 932,
+    "mode": "reference",
+    "anchor": "已搜尋到官方文字，但部分原頁開啟空白；只保存名稱與缺口，不把摘要當作操作全文。"
+  },
+  "TSC20": {
+    "motif": "movement",
+    "seed": 891,
+    "mode": "reference",
+    "anchor": "已搜尋到官方文字，但部分原頁開啟空白；只保存名稱與缺口，不把摘要當作操作全文。"
+  },
+  "TSC21": {
+    "motif": "movement",
+    "seed": 896,
+    "mode": "reference",
+    "anchor": "已搜尋到官方文字，但部分原頁開啟空白；只保存名稱與缺口，不把摘要當作操作全文。"
+  },
+  "TSC22": {
+    "motif": "touch",
+    "seed": 901,
+    "mode": "reference",
+    "anchor": "部分子法見於已讀日課說明；各自歷史、版本與原步驟仍待逐一核對，不用作疾病判讀。"
+  },
+  "TSC23": {
+    "motif": "scan",
+    "seed": 906,
+    "mode": "reference",
+    "anchor": "部分子法見於已讀日課說明；各自歷史、版本與原步驟仍待逐一核對，不用作疾病判讀。"
+  },
+  "TSC24": {
+    "motif": "touch",
+    "seed": 911,
+    "mode": "reference",
+    "anchor": "部分子法見於已讀日課說明；各自歷史、版本與原步驟仍待逐一核對，不用作疾病判讀。"
+  },
+  "TSC25": {
+    "motif": "breath",
+    "seed": 916,
+    "mode": "reference",
+    "anchor": "部分子法見於已讀日課說明；各自歷史、版本與原步驟仍待逐一核對，不用作疾病判讀。"
+  },
+  "TSC26": {
+    "motif": "awareness",
+    "seed": 921,
+    "mode": "reference",
+    "anchor": "部分子法見於已讀日課說明；各自歷史、版本與原步驟仍待逐一核對，不用作疾病判讀。"
+  },
+  "TSC27": {
+    "motif": "contemplate",
+    "seed": 926,
+    "mode": "reference",
+    "anchor": "部分子法見於已讀日課說明；各自歷史、版本與原步驟仍待逐一核對，不用作疾病判讀。"
+  },
+  "TSC28": {
+    "motif": "visualize",
+    "seed": 931,
+    "mode": "reference",
+    "anchor": "部分子法見於已讀日課說明；各自歷史、版本與原步驟仍待逐一核對，不用作疾病判讀。"
+  },
+  "TSC29": {
+    "motif": "contemplate",
+    "seed": 936,
+    "mode": "reference",
+    "anchor": "已辨識的蘇菲教團修習名稱；原教學尚未逐項核查，也未確立跨教團的共同操作。"
+  },
+  "TSC30": {
+    "motif": "contemplate",
+    "seed": 895,
+    "mode": "reference",
+    "anchor": "已辨識的蘇菲教團修習名稱；原教學尚未逐項核查，也未確立跨教團的共同操作。"
+  },
+  "TSC31": {
+    "motif": "contemplate",
+    "seed": 900,
+    "mode": "reference",
+    "anchor": "已辨識的蘇菲教團修習名稱；原教學尚未逐項核查，也未確立跨教團的共同操作。"
+  },
+  "TSC32": {
+    "motif": "ritual",
+    "seed": 905,
+    "mode": "reference",
+    "anchor": "已辨識的蘇菲教團修習名稱；原教學尚未逐項核查，也未確立跨教團的共同操作。"
+  },
+  "TSC33": {
+    "motif": "movement",
+    "seed": 910,
+    "mode": "reference",
+    "anchor": "本輪未取得足以確證藏傳譜系的原始資料，暫列近代流行體系候選，不作已核驗藏傳方法。"
+  },
+  "TSC34": {
+    "motif": "touch",
+    "seed": 915,
+    "mode": "reference",
+    "anchor": "擴展候選名稱已保存；具體版本及其與原有傳統的關係尚未核清，不計入已完成方法。"
+  },
+  "TSC35": {
+    "motif": "posture",
+    "seed": 920,
+    "mode": "reference",
+    "anchor": "擴展候選名稱已保存；具體版本及其與原有傳統的關係尚未核清，不計入已完成方法。"
+  },
+  "TSC36": {
+    "motif": "posture",
+    "seed": 925,
+    "mode": "reference",
+    "anchor": "擴展候選名稱已保存；具體版本及其與原有傳統的關係尚未核清，不計入已完成方法。"
+  },
+  "TSC37": {
+    "motif": "visualize",
+    "seed": 930,
+    "mode": "reference",
+    "anchor": "擴展候選名稱已保存；具體版本及其與原有傳統的關係尚未核清，不計入已完成方法。"
+  },
+  "TSC38": {
+    "motif": "visualize",
+    "seed": 935,
+    "mode": "reference",
+    "anchor": "擴展候選名稱已保存；具體版本及其與原有傳統的關係尚未核清，不計入已完成方法。"
+  },
+  "TSC39": {
+    "motif": "touch",
+    "seed": 940,
+    "mode": "reference",
+    "anchor": "來源指出與 Tarthang Tulku 放鬆瑜伽同名異法；本筆僅保留按摩版本入口，未補造操作。"
+  },
+  "TSC40": {
+    "motif": "movement",
+    "seed": 899,
+    "mode": "reference",
+    "anchor": "已識別的適齡子版本；來源未展開兒童操作，不照搬成人課程。"
+  },
+  "SC01": {
+    "motif": "book",
+    "seed": 557,
+    "mode": "illustration",
+    "anchor": "向蓮花部及三根本祈請的藏傳偈頌；照片未指定作者，提供麥彭仁波切的公開版本作對照。"
+  },
+  "SC02": {
+    "motif": "book",
+    "seed": 561,
+    "mode": "illustration",
+    "anchor": "常見麥彭仁波切吉祥祈願偈，禮敬八佛、八菩薩、八吉祥天女與八護世者。"
+  },
+  "SC03": {
+    "motif": "book",
+    "seed": 565,
+    "mode": "illustration",
+    "anchor": "敘述賢劫諸佛與菩薩修行的長篇大乘經；漢、藏版本分別提供閱讀入口。"
+  },
+  "SC04": {
+    "motif": "contemplate",
+    "seed": 569,
+    "mode": "illustration",
+    "anchor": "般若文獻的重要長經，討論菩薩行、無所得與智慧。"
+  },
+  "SC05": {
+    "motif": "book",
+    "seed": 573,
+    "mode": "reference",
+    "anchor": "陀羅尼與相關儀軌的彙編類別，尚不能確定照片指哪一部集成。"
+  },
+  "SC06": {
+    "motif": "contemplate",
+    "seed": 577,
+    "mode": "reference",
+    "anchor": "照片中文簡題與常見二萬五千頌名稱不完全一致，保留原題並列候選。"
+  },
+  "SC07": {
+    "motif": "contemplate",
+    "seed": 581,
+    "mode": "reference",
+    "anchor": "多部般若經的組合名，應保留各部本而不合成一部經。"
+  },
+  "SC08": {
+    "motif": "contemplate",
+    "seed": 585,
+    "mode": "reference",
+    "anchor": "照片列一組十二部般若文本；需合集目錄才能確認各篇。"
+  },
+  "SC09": {
+    "motif": "contemplate",
+    "seed": 589,
+    "mode": "reference",
+    "anchor": "泛稱般若經，未確定具體篇幅與部本。"
+  },
+  "SC10": {
+    "motif": "contemplate",
+    "seed": 556,
+    "mode": "reference",
+    "anchor": "小般若是簡稱，不能直接判定為心經、八千頌或某一略本。"
+  },
+  "SC11": {
+    "motif": "book",
+    "seed": 560,
+    "mode": "reference",
+    "anchor": "藏文佛語藏的集合誦讀，包含律、經、密續與陀羅尼等，並非單篇經文。"
+  },
+  "SC12": {
+    "motif": "book",
+    "seed": 564,
+    "mode": "reference",
+    "anchor": "經藏的略誦安排或選集，需要寺院所用目錄才能確認內容。"
+  },
+  "SC13": {
+    "motif": "ethics",
+    "seed": 568,
+    "mode": "concept",
+    "anchor": "在家持戒與受戒儀式，含一段時間的行為承諾，不是只念一份咒文。"
+  },
+  "SC14": {
+    "motif": "book",
+    "seed": 572,
+    "mode": "reference",
+    "anchor": "解脫經是簡題，尚未確認與《大解脫經》或其他經典的對應。"
+  },
+  "SC15": {
+    "motif": "book",
+    "seed": 576,
+    "mode": "reference",
+    "anchor": "蓮花生傳記有多個伏藏、史傳與摘要版本，照片未列作者或全題。"
+  },
+  "SC16": {
+    "motif": "book",
+    "seed": 580,
+    "mode": "illustration",
+    "anchor": "以懺悔、菩薩行與護持等為主題的經典，漢、藏各有不同篇幅版本。"
+  },
+  "SC17": {
+    "motif": "contemplate",
+    "seed": 584,
+    "mode": "illustration",
+    "anchor": "以菩薩行、無住與不執取名相為主題的般若經；提供鳩摩羅什漢譯入口與古偈節錄。"
+  },
+  "SC18": {
+    "motif": "recite",
+    "seed": 588,
+    "mode": "reference",
+    "anchor": "原題縮寫或字樣尚未確定，列文殊真實名經與一百八名梵讚兩個候選。"
+  },
+  "SC19": {
+    "motif": "book",
+    "seed": 592,
+    "mode": "reference",
+    "anchor": "白蓮花是簡題，最相關候選為法華經，也需排除同名白蓮華文獻。"
+  },
+  "SC20": {
+    "motif": "book",
+    "seed": 559,
+    "mode": "illustration",
+    "anchor": "祈願往生極樂與修習菩提心的願文有多個傳承版本；提供麥彭短願文對照。"
+  },
+  "SC21": {
+    "motif": "ritual",
+    "seed": 563,
+    "mode": "concept",
+    "anchor": "照片第一筆藥師佛儀軌；保留與下一筆的原始分項，版本未核明。"
+  },
+  "SC22": {
+    "motif": "ritual",
+    "seed": 567,
+    "mode": "concept",
+    "anchor": "照片第二筆藥師佛儀軌；沒有證據確認是略本，也不與第一筆擅自合併。"
+  },
+  "SC23": {
+    "motif": "book",
+    "seed": 571,
+    "mode": "reference",
+    "anchor": "同名候選包括經藏 Toh 269 與隆欽巴《秘密藏續》注釋，需核完整題名。"
+  },
+  "SC24": {
+    "motif": "ritual",
+    "seed": 575,
+    "mode": "concept",
+    "anchor": "度母曼荼羅供養的儀軌名稱；四曼荼羅供等不同版本需分辨。"
+  },
+  "SC25": {
+    "motif": "ritual",
+    "seed": 579,
+    "mode": "concept",
+    "anchor": "寧瑪等傳承的一髻佛母護法儀軌；具體法本、供養與修持條件待核。"
+  },
+  "SC26": {
+    "motif": "ritual",
+    "seed": 583,
+    "mode": "concept",
+    "anchor": "超度是儀式用途，不是唯一經名；藏傳有引導、遷識與中陰等不同法本。"
+  },
+  "SC27": {
+    "motif": "book",
+    "seed": 587,
+    "mode": "reference",
+    "anchor": "度母是本尊名，不能由此唯一確定二十一度母讚、心咒或完整儀軌。"
+  },
+  "SC28": {
+    "motif": "contemplate",
+    "seed": 591,
+    "mode": "illustration",
+    "anchor": "普賢菩薩行願與回向；藏傳《普賢行願讚》與四十華嚴行願品漢文需分版標記。"
+  },
+  "SC29": {
+    "motif": "ritual",
+    "seed": 595,
+    "mode": "concept",
+    "anchor": "除災描述儀式目的，尚未指定文本、法系與本尊。"
+  },
+  "SC30": {
+    "motif": "recite",
+    "seed": 562,
+    "mode": "illustration",
+    "anchor": "向蓮花生大師祈請的七句根本文，後接 Guru Padma Siddhi Hūṃ。"
+  },
+  "SC31": {
+    "motif": "book",
+    "seed": 566,
+    "mode": "illustration",
+    "anchor": "向蓮花生大師祈願的長偈，有七章祈請及修法總集等版本。"
+  },
+  "SC32": {
+    "motif": "book",
+    "seed": 570,
+    "mode": "illustration",
+    "anchor": "蓮師祈請文類，已有公開 Barché Lamsel 傳本，可比對原題與版本。"
+  },
+  "SC33": {
+    "motif": "book",
+    "seed": 574,
+    "mode": "reference",
+    "anchor": "照片第二字可辨為災，第一字暫讀禳；具體儀式與法本尚待核明。"
+  },
+  "SC34": {
+    "motif": "ethics",
+    "seed": 578,
+    "mode": "reference",
+    "anchor": "可能涉及別解脫戒經、律典或《律經》論書，未核明不能互換。"
+  },
+  "SC35": {
+    "motif": "ritual",
+    "seed": 582,
+    "mode": "concept",
+    "anchor": "密乘誓言的懺悔與恢復類文獻；照片未指定作者或還淨儀軌。"
+  },
+  "SC36": {
+    "motif": "ritual",
+    "seed": 586,
+    "mode": "concept",
+    "anchor": "金剛爪母相關陀羅尼、祈請與儀軌有不同文類，照片未指明祈禱文版本。"
+  },
+  "SC37": {
+    "motif": "recite",
+    "seed": 590,
+    "mode": "illustration",
+    "anchor": "以六字真言憶念觀世音菩薩；保存公開可核的梵文轉寫。"
+  },
+  "SC38": {
+    "motif": "book",
+    "seed": 594,
+    "mode": "reference",
+    "anchor": "保存大日如來名稱與可核的心陀羅尼入口，尚未把照片短名限定為某支咒文。"
+  },
+  "SC39": {
+    "motif": "recite",
+    "seed": 598,
+    "mode": "illustration",
+    "anchor": "以阿彌陀佛為所緣的短咒；與中文彌陀聖號分開保存。"
+  },
+  "SC40": {
+    "motif": "recite",
+    "seed": 565,
+    "mode": "concept",
+    "anchor": "對應阿閦佛／不動佛；與不動明王（Acala）的咒語分辨。"
+  },
+  "SC41": {
+    "motif": "recite",
+    "seed": 569,
+    "mode": "concept",
+    "anchor": "文殊忿怒本尊法門的名稱；不同傳承與壇城形式需先核對。"
+  },
+  "SC42": {
+    "motif": "recite",
+    "seed": 573,
+    "mode": "illustration",
+    "anchor": "金剛薩埵長咒；保存具名全文入口與版本差異說明。"
+  },
+  "SC43": {
+    "motif": "recite",
+    "seed": 577,
+    "mode": "illustration",
+    "anchor": "與百字明分開的短咒；保存以 hūṃ 結尾的可核參考版。"
+  },
+  "SC44": {
+    "motif": "recite",
+    "seed": 581,
+    "mode": "concept",
+    "anchor": "保存原典所列根本咒供辨識；正式本尊修持按傳承學習。"
+  },
+  "SC45": {
+    "motif": "recite",
+    "seed": 585,
+    "mode": "concept",
+    "anchor": "照片名稱先保留；是否指忿怒蓮師 Guru Drakpo 或另一法系仍待核對。"
+  },
+  "SC46": {
+    "motif": "recite",
+    "seed": 589,
+    "mode": "illustration",
+    "anchor": "保存公開可核的金剛上師咒；區別於前項未定的忿怒蓮師法本。"
+  },
+  "SC47": {
+    "motif": "recite",
+    "seed": 593,
+    "mode": "concept",
+    "anchor": "三尊合修的名稱；保存一個具名短咒參考版本。"
+  },
+  "SC48": {
+    "motif": "recite",
+    "seed": 597,
+    "mode": "concept",
+    "anchor": "保存薩迦念誦集所列葉衣佛母陀羅尼的原語轉寫。"
+  },
+  "SC49": {
+    "motif": "recite",
+    "seed": 601,
+    "mode": "reference",
+    "anchor": "照片短名不能唯一決定本尊；先保存原名與長壽三尊的辨識入口。"
+  },
+  "SC50": {
+    "motif": "recite",
+    "seed": 568,
+    "mode": "illustration",
+    "anchor": "保存噶瑪恰美法本所列原語短咒；與中欄藥師佛儀軌分開。"
+  },
+  "SC51": {
+    "motif": "recite",
+    "seed": 572,
+    "mode": "illustration",
+    "anchor": "保存度母根本咒；不把不同顏色、二十一度母或長壽擴展咒合併。"
+  },
+  "SC52": {
+    "motif": "recite",
+    "seed": 576,
+    "mode": "illustration",
+    "anchor": "以中文稱名為入口，與阿彌陀佛心咒分開保存。"
+  },
+  "SC53": {
+    "motif": "recite",
+    "seed": 580,
+    "mode": "illustration",
+    "anchor": "保存一個官方公開四皈依句版本；宗教歸屬與承諾由使用者理解後自願決定。"
+  },
+  "SC54": {
+    "motif": "recite",
+    "seed": 584,
+    "mode": "concept",
+    "anchor": "照片末列辨讀為摧破金剛；保存寧瑪原典的一段短咒與完整陀羅尼入口作版本參考。"
+  },
+  "YZ01": {
+    "motif": "moon",
+    "seed": 609,
+    "mode": "illustration",
+    "anchor": "The Journey 的中英文觀月冥想音頻引導；中文錄音約 17 分 11 秒，可自行暫停或結束。"
+  }
+}

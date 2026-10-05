@@ -1,0 +1,30 @@
+--- a/PULSE/pulse.ts
++++ b/PULSE/pulse.ts
+@@ -70,8 +70,10 @@
+   resolveModules,
+ } from "./lib"
+ 
+ import { startHooks, handleHooksRequestAsync, hooksHealth } from "./modules/hooks"
++import { handleWebChatRequest } from "./modules/web-chat"
++import { handleSelfAwarenessRequest } from "./modules/self-awareness"
+ import { homedir } from "node:os";
+ 
+ // Conditional imports — modules may not exist yet during incremental migration
+ let voiceModule: any = null
+@@ -822,8 +824,16 @@
+       if (!bindAll && !isLoopbackHostHeader(req.headers.get("host"), config.port)) {
+         return new Response("forbidden: non-loopback Host header", { status: 403 })
+       }
+ 
++      if (pathname.startsWith("/api/web-chat/")) return handleWebChatRequest(req, pathname)
++
++      // Manual local journal; no timers, sensing, or external services.
++      if (pathname === "/api/self-awareness" || pathname.startsWith("/api/self-awareness/")) {
++        const response = await handleSelfAwarenessRequest(req, pathname)
++        if (response) return response
++      }
++
+       // Health (unified) — moved to /api/pulse/health to avoid conflict with Life Dashboard /health page
+       if (req.method === "GET" && (pathname === "/api/pulse/health" || pathname === "/healthz")) {
+         return buildHealthResponse(state, config)
+       }

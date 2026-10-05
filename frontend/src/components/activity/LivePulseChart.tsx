@@ -1,0 +1,488 @@
+"use client";
+
+import { activityLabel } from "./labels";
+
+import { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import type { HookEvent } from "@/hooks/useAgentEvents";
+import { useChartData, type TimeRange } from "@/hooks/useChartData";
+import { useAdvancedMetrics } from "@/hooks/useAdvancedMetrics";
+import { useHeatLevel } from "@/hooks/useHeatLevel";
+import { createChartRenderer, type ChartDimensions, type ChartConfig } from "./ChartRenderer";
+import {
+  Settings2,
+  Hammer,
+  Cpu,
+  DollarSign,
+  Sparkles,
+  Moon,
+  Loader2,
+  FileText,
+  FilePlus,
+  FileEdit,
+  Search,
+  FolderSearch,
+  Globe,
+  Terminal,
+  Send,
+  MessageSquare,
+  Wrench,
+  Cog,
+  Play,
+  Code,
+  type LucideIcon,
+} from "lucide-react";
+
+// ─── Tool Icons ───
+
+const TOOL_ICON_MAP: Record<string, LucideIcon> = {
+  Read: FileText,
+  Write: FilePlus,
+  Edit: FileEdit,
+  Bash: Terminal,
+  BashOutput: Terminal,
+  Grep: Search,
+  Glob: FolderSearch,
+  WebFetch: Globe,
+  WebSearch: Globe,
+  Task: Send,
+  TodoWrite: MessageSquare,
+  NotebookEdit: Code,
+  NotebookRead: Code,
+  Skill: Cog,
+  SlashCommand: Play,
+};
+
+const TOOL_STYLE_MAP: Record<string, { bg: string; text: string }> = {
+  Read: { bg: "bg-[#b5e5d5]/10", text: "text-[#b5e5d5]" },
+  Write: { bg: "bg-[#b5e5d5]/10", text: "text-[#b5e5d5]" },
+  Edit: { bg: "bg-[#b5e5d5]/10", text: "text-[#b5e5d5]" },
+  Grep: { bg: "bg-[#b8b2cf]/10", text: "text-[#b8b2cf]" },
+  Glob: { bg: "bg-[#b8b2cf]/10", text: "text-[#b8b2cf]" },
+  Bash: { bg: "bg-[#b5e5d5]/10", text: "text-[#b5e5d5]" },
+  BashOutput: { bg: "bg-[#b5e5d5]/10", text: "text-[#b5e5d5]" },
+  WebFetch: { bg: "bg-[#d9b49e]/10", text: "text-[#d9b49e]" },
+  WebSearch: { bg: "bg-[#d9b49e]/10", text: "text-[#d9b49e]" },
+  Task: { bg: "bg-[#e8aaa0]/10", text: "text-[#e8aaa0]" },
+  TodoWrite: { bg: "bg-[#e8aaa0]/10", text: "text-[#e8aaa0]" },
+};
+
+const DEFAULT_STYLE = { bg: "bg-[rgba(163,181,184,0.1)]", text: "text-[var(--ink-2)]" };
+
+// ─── Agent Colors ───
+
+const AGENT_HEX_COLORS: Record<string, string> = {
+  pentester: "#e8aaa0",
+  engineer: "#97bdd2",
+  designer: "#b8b2cf",
+  architect: "#b8b2cf",
+  intern: "#8ec7bc",
+  artist: "#8ec7bc",
+  "perplexity-researcher": "#d9c49e",
+  "claude-researcher": "#d9c49e",
+  "gemini-researcher": "#d9c49e",
+  main: "#97bdd2",
+  da: "#97bdd2",
+  pai: "#97bdd2",
+  "claude-code": "#97bdd2",
+};
+
+function getHexColorForApp(name: string): string {
+  const key = name.split(":")[0].toLowerCase();
+  return AGENT_HEX_COLORS[key] || "#97bdd2";
+}
+
+// ─── Format Helpers ───
+
+function formatTokens(tokens: number): string {
+  if (tokens === 0) return "約 0";
+  if (tokens >= 1_000_000) return `約 ${(tokens / 1_000_000).toFixed(1)} 百萬`;
+  if (tokens >= 10_000) return `約 ${Math.round(tokens / 1000)} 千`;
+  if (tokens >= 1000) return `約 ${(tokens / 1000).toFixed(1)} 千`;
+  return `約 ${tokens}`;
+}
+
+// ─── Props ───
+
+interface LivePulseChartProps {
+  events: HookEvent[];
+  externalTimeRange?: TimeRange;
+  onHeatUpdate?: (data: { intensity: number; color: string; label: string }) => void;
+  onEventsPerMinuteUpdate?: (epm: number) => void;
+  onTimeRangeChange?: (range: TimeRange) => void;
+  onAllAgentsUpdate?: (ids: string[]) => void;
+  onAgentPillClick?: (agentId: string) => void;
+}
+
+// ─── Component ───
+
+export default function LivePulseChart({
+  events,
+  externalTimeRange,
+  onHeatUpdate,
+  onEventsPerMinuteUpdate,
+  onTimeRangeChange,
+  onAllAgentsUpdate,
+  onAgentPillClick,
+}: LivePulseChartProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rendererRef = useRef<ReturnType<typeof createChartRenderer> | null>(null);
+  const processedIdsRef = useRef(new Set<string>());
+  const renderLoopRef = useRef<number | null>(null);
+  const [chartHeight] = useState(260);
+
+  const {
+    timeRange,
+    dataPoints,
+    addEvent,
+    getChartData,
+    setTimeRange,
+    clearData,
+    currentConfig,
+    uniqueAgentIdsInWindow,
+    allUniqueAgentIds,
+    allEvents,
+  } = useChartData();
+
+  const { eventsPerMinute, totalTokens, topTools, skillsAndWorkflows, agentActivity, estimatedCost } =
+    useAdvancedMetrics(allEvents, dataPoints, timeRange, currentConfig);
+
+  const activeAgentCount = agentActivity.length;
+  const heat = useHeatLevel(eventsPerMinute, activeAgentCount);
+
+  // Stable agent names
+  const seenAgentsRef = useRef(new Set<string>());
+
+  const hasUserEvents = useMemo(() => allEvents.some((e) => e.hook_event_type === "UserPromptSubmit"), [allEvents]);
+
+  const stableAgentNames = useMemo(() => {
+    if (hasUserEvents) seenAgentsRef.current.add("User");
+    allUniqueAgentIds.forEach((id) => {
+      const name = id.split(":")[0];
+      seenAgentsRef.current.add(name.charAt(0).toUpperCase() + name.slice(1));
+    });
+    return Array.from(seenAgentsRef.current).sort();
+  }, [allUniqueAgentIds, hasUserEvents]);
+
+  // Agent action counts
+  const agentActionCounts = useMemo(() => {
+    const now = Date.now();
+    const cutoff = now - currentConfig.duration;
+    const counts: Record<string, number> = {};
+    allEvents.forEach((e) => {
+      if (e.timestamp && e.timestamp >= cutoff) {
+        const raw = e.agent_name || e.source_app || "unknown";
+        const name = raw.charAt(0).toUpperCase() + raw.slice(1);
+        counts[name] = (counts[name] || 0) + 1;
+      }
+    });
+    return counts;
+  }, [allEvents, currentConfig.duration]);
+
+  const isAgentActive = useCallback(
+    (name: string): boolean => {
+      if (name === "User") {
+        const now = Date.now();
+        return allEvents.some(
+          (e) => e.hook_event_type === "UserPromptSubmit" && e.timestamp && now - e.timestamp < 30000
+        );
+      }
+      return uniqueAgentIdsInWindow.some((id) => {
+        const raw = id.split(":")[0];
+        return raw.charAt(0).toUpperCase() + raw.slice(1) === name;
+      });
+    },
+    [allEvents, uniqueAgentIdsInWindow]
+  );
+
+  // Emit callbacks
+  useEffect(() => {
+    onHeatUpdate?.(heat);
+  }, [heat]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    onEventsPerMinuteUpdate?.(eventsPerMinute);
+  }, [eventsPerMinute]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    onTimeRangeChange?.(timeRange);
+  }, [timeRange]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    onAllAgentsUpdate?.(allUniqueAgentIds);
+  }, [allUniqueAgentIds]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // External time range sync
+  useEffect(() => {
+    if (externalTimeRange && externalTimeRange !== timeRange) {
+      setTimeRange(externalTimeRange);
+    }
+  }, [externalTimeRange]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Chart config
+  const getActiveConfig = (): ChartConfig => ({
+    maxDataPoints: 60,
+    animationDuration: 300,
+    barWidth: 3,
+    barGap: 1,
+    colors: { primary: "#97bdd2", glow: "#b5e5d5", axis: "#333", text: "#a3b5b8" },
+  });
+
+  const getDimensions = (): ChartDimensions => ({
+    width: containerRef.current?.offsetWidth || 800,
+    height: chartHeight,
+    padding: { top: 15, right: 15, bottom: 35, left: 15 },
+  });
+
+  const render = useCallback(() => {
+    if (!rendererRef.current || !canvasRef.current) return;
+    const data = getChartData();
+    const maxVal = Math.max(...data.map((d) => d.count), 1);
+    rendererRef.current.clear();
+    rendererRef.current.drawBackground();
+    rendererRef.current.drawAxes();
+    rendererRef.current.drawTimeLabels(timeRange);
+    rendererRef.current.drawBars(data, maxVal);
+  }, [getChartData, timeRange]);
+
+  // Initialize renderer
+  useEffect(() => {
+    if (!canvasRef.current || !containerRef.current) return;
+    const dims = getDimensions();
+    const config = getActiveConfig();
+    rendererRef.current = createChartRenderer(canvasRef.current, dims, config);
+
+    const resizeObs = new ResizeObserver(() => {
+      if (rendererRef.current) {
+        rendererRef.current.resize(getDimensions());
+        render();
+      }
+    });
+    resizeObs.observe(containerRef.current);
+
+    // Render loop
+    let lastRender = 0;
+    const frameInterval = 1000 / 30;
+    const loop = (t: number) => {
+      if (t - lastRender >= frameInterval) {
+        render();
+        lastRender = t - ((t - lastRender) % frameInterval);
+      }
+      renderLoopRef.current = requestAnimationFrame(loop);
+    };
+    renderLoopRef.current = requestAnimationFrame(loop);
+
+    return () => {
+      resizeObs.disconnect();
+      if (renderLoopRef.current) cancelAnimationFrame(renderLoopRef.current);
+      rendererRef.current?.stopAnimation();
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Process events
+  useEffect(() => {
+    if (events.length === 0) {
+      clearData();
+      processedIdsRef.current.clear();
+      return;
+    }
+
+    const newEvents: HookEvent[] = [];
+    events.forEach((event) => {
+      const key = String(event.id);
+      if (!processedIdsRef.current.has(key)) {
+        processedIdsRef.current.add(key);
+        newEvents.push(event);
+      }
+    });
+
+    const currentIds = new Set(events.map((e) => String(e.id)));
+    processedIdsRef.current.forEach((id) => {
+      if (!currentIds.has(id)) processedIdsRef.current.delete(id);
+    });
+
+    newEvents.forEach((event) => {
+      if (event.hook_event_type === "refresh" || event.hook_event_type === "initial") return;
+      addEvent(event);
+    });
+  }, [events]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const hasData = dataPoints.some((dp) => dp.count > 0);
+  const skills = skillsAndWorkflows.filter((sw) => sw.type === "skill");
+  const workflows = skillsAndWorkflows.filter((sw) => sw.type === "workflow");
+
+  return (
+    <div className="flex flex-col">
+      {/* Header Bar: Skills, Workflows, Tools, Tokens, Cost */}
+      <div className="px-5 py-2 border-b border-white/[0.03]">
+        <div className="flex items-center gap-4 flex-wrap">
+          {/* Skills */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-sm text-[var(--ink-3)] font-medium uppercase">技能：</span>
+            {skills.length === 0 ? (
+              <span className="text-sm font-medium text-[var(--ink-3)]">—</span>
+            ) : (
+              skills.slice(0, 3).map((s) => (
+                <div key={s.name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm bg-[#b8b2cf]/10">
+                  <Settings2 size={14} className="text-[#b8b2cf]" />
+                  <span className="font-medium text-[#b8b2cf]">{s.name}</span>
+                </div>
+              ))
+            )}
+          </div>
+
+          <span className="text-[var(--line-2)]">|</span>
+
+          {/* Workflows */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-sm text-[var(--ink-3)] font-medium uppercase">工作流程：</span>
+            {workflows.length === 0 ? (
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm bg-[rgba(163,181,184,0.2)]">
+                <Hammer size={14} className="text-[var(--ink-3)]" />
+                <span className="font-medium text-[var(--ink-3)]">無</span>
+              </div>
+            ) : (
+              workflows.slice(0, 3).map((w) => (
+                <div key={w.name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm bg-[#97bdd2]/10">
+                  <Hammer size={14} className="text-[#97bdd2]" />
+                  <span className="font-medium text-[#97bdd2]">{w.name}</span>
+                </div>
+              ))
+            )}
+          </div>
+
+          <span className="text-[var(--line-2)]">|</span>
+
+          {/* Tools */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-sm text-[var(--ink-3)] font-medium uppercase">工具：</span>
+            {topTools.length === 0 ? (
+              ["Read", "Edit", "Bash"].map((t) => {
+                const Icon = TOOL_ICON_MAP[t] || Wrench;
+                return (
+                  <div key={t} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm bg-[rgba(163,181,184,0.2)]">
+                    <Icon size={14} className="text-[var(--ink-3)]" />
+                    <span className="font-medium text-[var(--ink-3)]">{activityLabel(t)}</span>
+                  </div>
+                );
+              })
+            ) : (
+              topTools.filter((t) => t.tool !== "unknown").slice(0, 4).map((tool) => {
+                const Icon = TOOL_ICON_MAP[tool.tool] || Wrench;
+                const style = TOOL_STYLE_MAP[tool.tool] || DEFAULT_STYLE;
+                return (
+                  <div key={tool.tool} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm ${style.bg}`}>
+                    <Icon size={14} className={style.text} />
+                    <span className={`font-medium ${style.text}`}>{activityLabel(tool.tool)}</span>
+                    <span className={`font-bold ${style.text}`}>{tool.count}</span>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          <div className="flex-1" />
+
+          {/* Tokens */}
+          <div
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm shrink-0"
+            style={{ backgroundColor: "rgba(224,175,104,0.15)" }}
+          >
+            <Cpu size={14} className="text-[#d9c49e]" />
+            <span className="font-medium text-[#d9c49e]">
+              {formatTokens(totalTokens.input)}/{formatTokens(totalTokens.output)}
+            </span>
+          </div>
+
+          {/* Cost */}
+          <div
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm shrink-0"
+            style={{ backgroundColor: "rgba(158,206,106,0.15)" }}
+          >
+            <DollarSign size={14} className="text-[#b5e5d5]" />
+            <span className="font-medium text-[#b5e5d5]">${estimatedCost.toFixed(2)}</span>
+          </div>
+        </div>
+
+        {/* Agent Pills Bar */}
+        <div className="flex gap-2 min-h-[32px] mt-2 pt-2 border-t border-white/[0.03]">
+          {stableAgentNames.length === 0 ? (
+            ["User", "Agent"].map((name) => (
+              <div
+                key={name}
+                className="flex-1 min-w-0 text-xs font-medium px-3 py-1.5 rounded-lg flex items-center gap-2 justify-center bg-[rgba(163,181,184,0.2)]"
+              >
+                <Moon size={10} className="shrink-0 text-[var(--ink-3)]" />
+                <span className="font-mono truncate text-[var(--ink-3)]">{activityLabel(name)}</span>
+              </div>
+            ))
+          ) : (
+            stableAgentNames.map((name) => {
+              const active = isAgentActive(name);
+              const color = getHexColorForApp(name);
+              const count = name === "User"
+                ? allEvents.filter((e) => e.hook_event_type === "UserPromptSubmit" && e.timestamp && Date.now() - e.timestamp < currentConfig.duration).length
+                : agentActionCounts[name] || 0;
+
+              // Find matching agent ID for swim lane toggle
+              const matchingAgentId = allUniqueAgentIds.find((id) => {
+                const raw = id.split(":")[0];
+                return raw.charAt(0).toUpperCase() + raw.slice(1) === name;
+              });
+
+              return (
+                <button
+                  key={name}
+                  onClick={() => matchingAgentId && onAgentPillClick?.(matchingAgentId)}
+                  className={`flex-1 min-w-0 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-2 justify-center ${
+                    active ? "text-white" : "text-[var(--ink-2)] opacity-40 hover:opacity-70"
+                  }`}
+                  style={{
+                    borderColor: color + (active ? "60" : "20"),
+                    backgroundColor: color + (active ? "20" : "05"),
+                  }}
+                >
+                  {active ? (
+                    <Sparkles size={10} className="shrink-0" style={{ color }} />
+                  ) : (
+                    <Moon size={10} className="shrink-0 opacity-50" />
+                  )}
+                  <span className="font-mono truncate">{activityLabel(name)}</span>
+                  {count >= 1 && (
+                    <span
+                      className="px-1.5 py-0.5 text-[16px] font-bold rounded min-w-[20px] text-center shrink-0"
+                      style={{ backgroundColor: color, color: "var(--ground)" }}
+                    >
+                      {count}
+                    </span>
+                  )}
+                </button>
+              );
+            })
+          )}
+        </div>
+      </div>
+
+      {/* Canvas Chart */}
+      <div className="px-5 py-4">
+        <div ref={containerRef} className="relative rounded-xl overflow-hidden">
+          <canvas
+            aria-label="工具與代理事件活動圖"
+            role="img"
+            ref={canvasRef}
+            className="w-full cursor-crosshair"
+            style={{ height: chartHeight + "px" }}
+          />
+          {!hasData && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="flex items-center gap-3 text-[var(--ink-3)] text-base">
+                <Loader2 size={20} strokeWidth={2} className="animate-spin text-[#b5e5d5]" />
+                <span className="font-medium">等待事件資料…</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

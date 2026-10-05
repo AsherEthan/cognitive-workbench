@@ -1,0 +1,311 @@
+"use client";
+
+import { uiLabel, periodLabel } from "./labels";
+
+import type { ReactNode } from "react";
+import type { Telos } from "./data";
+import type { TweakVals } from "./tweaks";
+import { DimensionBars } from "./dimension-bars";
+import { summarizeTelos } from "./summary";
+import { StillnessKit } from "./stillness-kit";
+
+// Hero — narrative + 6 Current-Ideal gap rings.
+
+interface TraceTextProps {
+  id: string | null | undefined;
+  children: ReactNode;
+  cls?: string;
+  showIds: boolean;
+  onTrace: (id: string | null) => void;
+}
+
+interface NarrativeProps {
+  telos: Telos;
+  tone?: TweakVals["narrativeTone"];
+  showIds: boolean;
+  onTrace: (id: string | null) => void;
+}
+
+interface HeroProps {
+  telos: Telos;
+  tone: TweakVals["narrativeTone"];
+  showIds: boolean;
+  onTrace: (id: string | null) => void;
+  openFile?: (name: string) => void;
+  isPersonalized?: boolean;
+}
+
+type MoodDimension = Telos["dimensions"][number];
+
+interface MoodDimensions {
+  positive: MoodDimension;
+  flat: MoodDimension;
+  negative: MoodDimension;
+}
+
+function TraceText({ id, children, cls, showIds, onTrace }: TraceTextProps) {
+  return (
+    <span className={'n-trace '+(cls||'')} role="button" tabIndex={0} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onTrace(id ?? null); } }} onClick={()=>onTrace(id ?? null)}>
+      {children}{showIds && id && <span className="n-id mono">{id}</span>}
+    </span>
+  );
+}
+
+function pickMoodDimensions(dimensions: readonly MoodDimension[]): MoodDimensions | null {
+  if (dimensions.length < 3) {
+    // Fewer than three dimensions cannot support a climbing/steady/drifting trio.
+    return null;
+  }
+  let positive: MoodDimension | null = null;
+  let flat: MoodDimension | null = null;
+  let negative: MoodDimension | null = null;
+  for (const dimension of dimensions) {
+    if (dimension.velo > 0 && (!positive || dimension.velo > positive.velo)) {
+      positive = dimension;
+    }
+    if (!flat || Math.abs(dimension.velo) < Math.abs(flat.velo)) {
+      flat = dimension;
+    }
+    if (dimension.velo < 0 && (!negative || dimension.velo < negative.velo)) {
+      negative = dimension;
+    }
+  }
+  if (!positive || !negative || !flat) {
+    // If all velocities share one sign, omit the mood line instead of inventing contrast.
+    return null;
+  }
+  return { positive, flat, negative };
+}
+
+function buildMoodLine(dimensions: readonly MoodDimension[]): string | null {
+  const moodDimensions = pickMoodDimensions(dimensions);
+  return moodDimensions
+    ? `${uiLabel(moodDimensions.positive.label)}的記錄值上升，${uiLabel(moodDimensions.flat.label)}大致持平，${uiLabel(moodDimensions.negative.label)}的記錄值下降。`
+    : null;
+}
+
+function Narrative({ telos, tone='operator', showIds, onTrace }: NarrativeProps) {
+  const n = telos.narrativeSeed;
+  // Personalized installs return narrativeSeed: null until a current-work
+  // pointer is wired to live work-system state. The EMPTY skeleton substitutes
+  // a blank narrativeSeed (push_name === ''); skip the paragraph in either
+  // case rather than render a fixture-flavored sentence.
+  if (!n || !n.push_name) return null;
+  const work = telos.projects.flatMap(p=>p.work).find(w=>w.id===n.current_work);
+  const strat = telos.strategies.find(s=>s.id===n.via_strategy);
+  const chal  = telos.challenges.find(c=>c.id===n.addresses);
+  const goal  = telos.goals.find(g=>g.id===n.moves_goal);
+  const miss  = telos.missions.find(m=>m.id===n.serves_mission);
+  const prob  = telos.problems.find(p=>(miss?.addresses||[]).includes(p.id));
+
+  if (!work || !strat || !chal || !goal || !miss) return null;
+
+  const strategyTitle = strat.title;
+  const challengeTitle = chal.title;
+  const goalTitle = goal.title;
+  const missionTitle = miss.title;
+  const problemTitle = prob?.title;
+  const moodLine = buildMoodLine(telos.dimensions);
+
+  const Trace = ({ id, children, cls }: Omit<TraceTextProps, "showIds" | "onTrace">) => (
+    <TraceText id={id} cls={cls} showIds={showIds} onTrace={onTrace}>{children}</TraceText>
+  );
+
+  if (tone === 'terse') {
+    return (
+      <p className="narrative">
+        <Trace id={null} cls="n-accent">{n.days_into} 天</Trace> · {n.push_name}。{' '}
+        <Trace id={work.id} cls="n-accent">{work.title}</Trace> —{' '}
+        <Trace id={strat.id} cls="n-soft">{strategyTitle}</Trace>，{' '}
+        <Trace id={chal.id} cls="n-warm">{challengeTitle}</Trace>。
+      </p>
+    );
+  }
+
+  return (
+    <p className="narrative">
+      「<span className="n-accent">{n.push_name}</span>」已進行 <span className="n-accent">{n.days_into} 天</span>。
+      目前正在處理「<Trace id={work.id} cls="n-accent">{work.title}</Trace>」，
+      透過「<Trace id={strat.id} cls="n-soft">{strategyTitle}</Trace>」，
+      回應「<Trace id={chal.id} cls="n-warm">{challengeTitle}</Trace>」。
+      這項工作連向「<Trace id={goal.id} cls="n-soft">{goalTitle}</Trace>」，
+      支援「<Trace id={miss.id} cls="n-warm">{missionTitle}</Trace>」
+      {problemTitle && <>，也與「<Trace id={prob?.id} cls="n-warm">{problemTitle}</Trace>」有關</>}。
+      {moodLine && <> {' '}<span className="n-quiet">{moodLine}</span></>}
+    </p>
+  );
+}
+
+export function Hero({ telos, tone, showIds, onTrace, openFile, isPersonalized }: HeroProps) {
+  const { projects, dimensions, snapshot, owner, idealState } = telos;
+  const hasOwner = !!owner.day;            // EMPTY skeleton has owner.day === ''
+  const hasIdealState = !!idealState.note; // EMPTY skeleton has idealState.note === ''
+  const green = projects.filter(p=>p.status==='green').length;
+  const amber = projects.filter(p=>p.status==='amber').length;
+  const red   = projects.filter(p=>p.status==='red').length;
+  const wip   = projects.reduce((a,p)=>a+p.work.length,0);
+
+  // Universal summary — operates only on telos schema, no hardcoded names.
+  // Returns null on fixture installs and structurally-empty TELOS, so the
+  // Hero falls back to its existing rings-first layout for those cases.
+  const summary = summarizeTelos(telos, isPersonalized === true);
+
+  const hasNarratives = !!(telos.currentStateNarrative && telos.idealStateNarrative);
+
+  return (
+    <section className="hero" id="sec-current">
+      {hasOwner && (
+        <div className="hero-date">
+          <span className="hero-date-day">{owner.day}</span>
+          <span className="hero-streak">
+            <span className="hero-streak-flame">◆</span>
+            <span>已連續記錄 {owner.streak} 天</span>
+          </span>
+          
+        </div>
+      )}
+
+      {(telos.synthesisSegments || telos.synthesisParagraph || telos.recommendedNextAction || telos.currentStateBullets || telos.idealStateBullets || hasNarratives) && (
+        <div className="hero-state-block">
+          {telos.synthesisSegments && telos.synthesisSegments.length > 0 ? (
+            <p className="hero-synthesis">
+              {telos.synthesisSegments.map((seg, i) => {
+                if (seg.kind === "text") return <span key={i}>{seg.text}</span>;
+                const cls = `synth-tok synth-tok-${seg.kind}`;
+                if (seg.id) {
+                  return (
+                    <button
+                      key={i}
+                      type="button"
+                      className={cls}
+                      onClick={() => onTrace(seg.id!)}
+                      title={`${uiLabel(seg.kind)} · ${seg.id}`}
+                      aria-label={`查看${uiLabel(seg.kind)}：${seg.text}`}
+                    >
+                      {seg.text}
+                    </button>
+                  );
+                }
+                return <span key={i} className={cls}>{seg.text}</span>;
+              })}
+            </p>
+          ) : telos.synthesisParagraph ? (
+            <p className="hero-synthesis">{telos.synthesisParagraph}</p>
+          ) : null}
+          {telos.recommendedNextAction && (
+            <p className="hero-next-action">
+              <span className="hero-next-tag">下一步</span>
+              <span>{telos.recommendedNextAction}</span>
+            </p>
+          )}
+          {(telos.currentStateBullets || telos.idealStateBullets || hasNarratives) && (
+            <div className="hero-state-cards">
+              <div className="hero-state-card hero-state-card-current">
+                <div className="hero-state-card-label">當下狀態</div>
+                {telos.currentStateBullets && telos.currentStateBullets.length > 0 ? (
+                  <ul className="hero-state-card-list">
+                    {telos.currentStateBullets.map((b) => (
+                      <li key={b.label}>
+                        <span className="hero-state-card-key">{b.label}</span>
+                        <span className="hero-state-card-val">{b.value}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : telos.currentStateNarrative ? (
+                  <p className="hero-state-card-body">{telos.currentStateNarrative}</p>
+                ) : null}
+              </div>
+              <div className="hero-state-card hero-state-card-ideal" id="sec-ideal">
+                <div className="hero-state-card-label">理想狀態</div>
+                {telos.idealStateBullets && telos.idealStateBullets.length > 0 ? (
+                  <ul className="hero-state-card-list">
+                    {telos.idealStateBullets.map((b) => (
+                      <li key={b.label}>
+                        <span className="hero-state-card-key">{b.label}</span>
+                        <span className="hero-state-card-val">{b.value}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : telos.idealStateNarrative ? (
+                  <p className="hero-state-card-body">{telos.idealStateNarrative}</p>
+                ) : null}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="hero-top-row">
+        {summary ? (
+          <div className="hero-summary">
+            <p className="hero-summary-headline">{summary.headline}</p>
+            {summary.position && (
+              <p className="hero-summary-line"><span className="hero-summary-tag">當下</span>{summary.position}</p>
+            )}
+            {summary.traction && (
+              <p className="hero-summary-line"><span className="hero-summary-tag hero-summary-tag-ok">變化</span>{summary.traction}</p>
+            )}
+            {summary.pinch && (
+              <p className="hero-summary-line"><span className="hero-summary-tag hero-summary-tag-warn">阻礙</span>{summary.pinch}</p>
+            )}
+            {summary.drift && (
+              <p className="hero-summary-line"><span className="hero-summary-tag hero-summary-tag-warn">待留意</span>{summary.drift}</p>
+            )}
+            {summary.recommendations && (
+              <p className="hero-summary-line hero-summary-line-recs"><span className="hero-summary-tag hero-summary-tag-next">下一步</span>{summary.recommendations}</p>
+            )}
+          </div>
+        ) : <div />}
+        <StillnessKit telos={telos} />
+      </div>
+
+      {hasIdealState && (
+        <div className="ideal-head">
+          <div className="ideal-head-l">
+            <span className="ideal-label">當下與理想</span>
+            <span className="ideal-horizon">{idealState.horizon}</span>
+          </div>
+          <span className="ideal-note">{idealState.note}</span>
+        </div>
+      )}
+
+      <DimensionBars
+        dimensions={dimensions}
+        onDimClick={(id) => (openFile ? openFile("TELOS.md") : onTrace(id))}
+      />
+
+      {telos.workNarrative && (
+        <p className="hero-work-narrative">
+          {telos.workNarrative.summary}
+        </p>
+      )}
+
+      <Narrative telos={telos} tone={tone} showIds={showIds} onTrace={onTrace}/>
+
+      {projects.length > 0 && (
+        <p className="hero-sub">
+          {green} 項進行順利，{amber} 項需要留意。
+          {red > 0 && <> {red} 項遇到阻礙。</>}
+          {' '}<span className="hero-sub-soft">目前有 {wip} 項工作進行中。</span>
+        </p>
+      )}
+
+      <div className="hero-snapshot">
+        {snapshot.map(s=>{
+          const label =
+            s.id==='mood'   ? (s.v>=7?'穩定':s.v>=5?'起伏':'低落') :
+            s.id==='energy' ? `${s.v.toFixed(0)} / 10` :
+                              (s.v>=8?'敏銳':s.v>=6?'清楚':'分散');
+          return (
+            <div key={s.id} className="snap">
+              <span className="snap-dot" style={{background:`var(${s.id==='mood'?'--freedom':s.id==='energy'?'--money':'--creative'})`,opacity:0.35 + (s.v/s.of)*0.65}}/>
+              <span className="snap-label">{uiLabel(s.label)}</span>
+              <span className="snap-sep">·</span>
+              <span className="snap-value">{label}</span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}

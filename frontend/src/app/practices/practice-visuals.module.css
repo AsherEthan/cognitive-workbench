@@ -1,0 +1,38 @@
+.field { margin: 28px 0 35px; border: 1px solid var(--aw-line); background: linear-gradient(145deg,#10232390,#080f14); border-radius: 5px; overflow: hidden; }
+.fieldHeader { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:20px 24px; border-bottom:1px solid var(--aw-line); }
+.kicker { color:var(--aw-accent); font-size:10px; letter-spacing:.18em; margin-bottom:8px!important; }
+.fieldHeader h2 { font-family:'valkyrie-text','Songti TC',serif; font-size:26px; font-weight:400; }
+.fieldHeader > span { color:var(--aw-muted); font-size:11px; }
+.fieldGrid { display:grid;grid-template-columns:minmax(0,1fr) 310px; }
+.stage { position:relative; min-width:0; height:410px; background:radial-gradient(ellipse at 50% 55%,#203b393d,transparent 65%); }
+.webgl { display:block;width:100%;height:100%;touch-action:pan-y;outline-offset:-4px; }
+.webgl:focus-visible { outline:2px solid var(--aw-accent); }
+.stageLabel { position:absolute;left:20px;top:18px;pointer-events:none;font-size:10px;letter-spacing:.06em;color:var(--aw-muted); }
+.stageLegend { position:absolute;left:20px;bottom:18px;pointer-events:none;color:var(--aw-muted);font-size:10px; }
+.preview { padding:26px 24px;border-left:1px solid var(--aw-line);display:flex;flex-direction:column;justify-content:center;min-width:0; }
+.preview h3 { font-size:23px;font-weight:400;line-height:1.65;font-family:'valkyrie-text','Songti TC',serif; margin:14px 0!important; }
+.preview p { font-size:12px;line-height:1.9;color:var(--aw-muted); }
+.badge { display:inline-flex;gap:8px;align-items:center;font-size:10px;color:var(--aw-accent); }
+.badge i { width:6px;height:6px;border-radius:50%;background:var(--motif-color,var(--aw-accent)); }
+.mode { font-size:10px!important;margin:14px 0!important;color:var(--aw-accent)!important; }
+.action { display:inline-flex;gap:10px;align-items:center;min-height:44px;font-size:12px;color:var(--aw-accent);text-align:left; }
+.controls { display:flex; flex-wrap:wrap;gap:8px 18px;align-items:center;padding:14px 20px;border-top:1px solid var(--aw-line); }
+.controls button { color:var(--aw-muted);font-size:11px;min-height:40px;display:inline-flex;gap:7px;align-items:center;padding:4px 8px; }
+.controls button:hover { color:var(--aw-accent); }
+.controls button:focus-visible,.controls select:focus-visible,.action:focus-visible { outline:2px solid var(--aw-accent);outline-offset:3px; }
+.picker { display:flex;align-items:center;gap:10px;color:var(--aw-muted);font-size:11px;flex:1;min-width:190px; }
+.picker select { min-width:0;max-width:340px;width:100%;min-height:40px;background:var(--aw-surface);border:1px solid var(--aw-line);color:var(--aw-ink);border-radius:3px;padding:6px 10px; }
+.note { border-top:1px solid var(--aw-line);padding:13px 20px;font-size:10px;line-height:1.9;color:var(--aw-muted); }
+.cardCanvas { display:block;width:100%;height:105px;background:radial-gradient(ellipse at center,#b5e5d50b,transparent 70%); }
+.cardVisual { margin:9px -4px 14px;cursor:pointer;width:calc(100% + 8px);position:relative;display:block; }
+.cardVisual span { position:absolute;bottom:0;right:8px;font-size:9px;color:var(--aw-muted); }
+.detail { margin:0 0 28px;border:1px solid var(--aw-line);border-radius:4px;overflow:hidden; }
+.detail .stage { height:310px; }
+.detailCaption { padding:18px 20px; }
+.detailCaption h3 { font-family:'valkyrie-text','Songti TC',serif;font-size:20px;font-weight:400;line-height:1.7; }
+.detailCaption p { color:var(--aw-muted);font-size:12px;line-height:1.95;margin-top:9px!important; }
+.fallbackCanvas { display:block;width:100%;height:100%; }
+.fallback { position:absolute;inset:0; }
+.empty { display:flex;align-items:center;justify-content:center;height:100%;color:var(--aw-muted);font-size:13px; }
+@media(max-width:900px){.fieldGrid{grid-template-columns:minmax(0,1fr) 250px}.preview{padding:20px}.stage{height:360px}}
+@media(max-width:640px){.fieldHeader{padding:18px;align-items:start}.fieldHeader h2{font-size:22px}.fieldHeader>span{max-width:90px;line-height:1.8}.fieldGrid{grid-template-columns:minmax(0,1fr)}.stage{height:290px}.preview{border-left:0;border-top:1px solid var(--aw-line);padding:20px}.preview h3{font-size:22px;margin:10px 0!important}.controls{padding:12px}.picker{flex-basis:100%}.detail .stage{height:250px}.stageLegend{font-size:9px}.field{margin:20px 0 28px}}

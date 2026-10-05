@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "upstream": "https://github.com/danielmiessler/LifeOS",
+  "release": "v7.40.4",
+  "description": "Code-only export from the customized local Codex workbench. User data and local settings are excluded.",
+  "pulsePatchBase": {
+    "path": "LifeOS/install/LIFEOS/PULSE/pulse.ts",
+    "sha256": "7dba360075f50a619624409d48976b3a2ff698b2a00ea351513b2889fbfbeb46"
+  },
+  "integrationFiles": [
+    {
+      "path": "Observability/observability.ts",
+      "sha256": "db1e3ac33ceec4fd61afbd80f45796400c1c64ac406ecbf494908244d81aebf9"
+    },
+    {
+      "path": "modules/self-awareness.ts",
+      "sha256": "da28998992eb4e2aba717955296dbbbb739baebb7f817c2c7cdea98f0b0600b4"
+    },
+    {
+      "path": "modules/self-awareness.test.ts",
+      "sha256": "8844838646e93961b8493c34f2a3433711bace8d77ef615a67621a62707b3436"
+    },
+    {
+      "path": "modules/web-chat.ts",
+      "sha256": "ef4ed4da5e6045559143a0a797ef762ccfc49130deadd9f6b93054f0f8ec503c"
+    },
+    {
+      "path": "modules/web-chat.test.ts",
+      "sha256": "172efb560617b5acbff1cabd31888ca114fb888accf53de503643ade53f6c523"
+    },
+    {
+      "path": "lib/atomic-write.ts",
+      "sha256": "2223e4df828a493df48ed12415bb06dc3dc478da37aa36c5714491238d9376d3"
+    }
+  ],
+  "vendoredFrontendModule": {
+    "upstreamPath": "LifeOS/install/LIFEOS/TOOLS/ascent.ts",
+    "repositoryPath": "frontend/src/lib/vendor/ascent.ts",
+    "sha256": "772ae9ebd6305c9f25d7af9d815d796687c02545971235b3dc9e789ab055d3c9"
+  },
+  "changes": [
+    "Frontend imports resolve to the vendored pure ascent module.",
+    "Frontend does not ignore TypeScript build errors.",
+    "Pulse patch only registers the manual self-awareness and web-chat handlers."
+  ]
+}

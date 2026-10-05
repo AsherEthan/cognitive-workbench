@@ -1,0 +1,10 @@
+{
+  "name": "cognitive-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "bun --cwd frontend run dev",
+    "build": "bun --cwd frontend run build",
+    "test": "bun test tests/practices integrations/lifeos/modules/self-awareness.test.ts integrations/lifeos/modules/web-chat.test.ts"
+  }
+}
