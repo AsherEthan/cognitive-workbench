@@ -2,6 +2,7 @@
 
 import { displayLabel } from "@/lib/zh-TW";
 import { useEffect, useState } from "react";
+import { useDesktopCapabilities } from "@/lib/use-desktop-capabilities";
 
 // Global critical/high security banner. Reads the user's security system via
 // /api/bunker/critical. It renders ONLY when that system exists AND reports a
@@ -22,8 +23,10 @@ interface CritData {
 export default function SecurityBanner() {
   const [d, setD] = useState<CritData | null>(null);
   const [open, setOpen] = useState(false);
+  const { desktop, pending } = useDesktopCapabilities();
 
   useEffect(() => {
+    if (pending || desktop) return;
     const load = async () => {
       try {
         const r = await fetch("/api/bunker/critical", { cache: "no-store" });
@@ -34,10 +37,10 @@ export default function SecurityBanner() {
     load();
     const id = setInterval(load, 60_000);
     return () => clearInterval(id);
-  }, []);
+  }, [desktop, pending]);
 
   // Hidden unless a configured security system reports at least one crit/high.
-  if (!d || !d.configured || d.count === 0) return null;
+  if (desktop || pending || !d || !d.configured || d.count === 0) return null;
 
   const hasCrit = (d.critical ?? 0) > 0;
   const label = [

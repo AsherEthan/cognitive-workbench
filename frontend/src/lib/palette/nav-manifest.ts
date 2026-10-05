@@ -76,6 +76,14 @@ export const tier1Nav: NavItem[] = [
   { href: "/synapse", label: "想法收集", icon: Share2, keywords: ["ideas", "capture", "router", "amber"], module: "synapse" },
 ];
 
+// The standalone app only advertises pages backed by its local service.
+// Keep this separate so existing LifeOS web deployments retain their menu.
+export const desktopNav: NavItem[] = [
+  { href: "/awareness", label: "自我覺察", icon: Compass, keywords: ["awareness", "狀態", "覺察"] },
+  { href: "/practices", label: "練習與實踐", icon: BookOpen, keywords: ["practices", "練習", "閱讀", "冥想"] },
+  { href: "/agent", label: "Agent", icon: Bot, keywords: ["hermes", "對話", "輸入口", "助理", "代理", "工作"] },
+];
+
 // ── Meta — pinned in the header's right cluster on EVERY page, outside both
 // tiers. Agents is the view of the system working on itself, so it never
 // scrolls away and never depends on which plane you're in.

@@ -17,6 +17,14 @@
 
 前端使用 Next.js、React、Three.js、Tailwind CSS、D3、Lucide、Radix UI、TanStack Query 及其他套件。實際版本由 `frontend/bun.lock` 記錄。各套件保留其各自授權，安裝時取得的套件內授權檔案仍有效；本倉庫不包含 `node_modules/`。
 
+桌面容器使用 Electron、electron-builder、esbuild 與 ws，版本記錄於根目錄 `package-lock.json`。各套件採用其原有授權。
+
+## Hermes Agent
+
+桌面原型透過本機 WebSocket／JSON-RPC 接入 [Nous Research 的 Hermes Agent](https://github.com/NousResearch/hermes-agent)。協議實作對照上游版本 `6590f13a1ba21b18224a0f53ef2ead004b5fa7d6`；詳細來源見 [桌面版說明](desktop/README.md#hermes-協議依據)。
+
+此版本要求使用者另行安裝 Hermes，沒有將 Hermes 程式、Python 環境或模型重新打包進本倉庫／安裝包。Hermes 及其依賴仍依各自授權提供，名稱與品牌屬原權利人；本工作台未宣稱為 Hermes 官方桌面發行版。
+
 ## 字體與標誌
 
 LifeOS 原始樣式曾引用 Matthew Butterick 的商業字體。本倉庫不包含這些字體檔案；保留 `frontend/public/fonts/FONTS-README.md` 的來源說明，介面使用可用的系統字體。使用者若另行取得字體，須依其授權使用。

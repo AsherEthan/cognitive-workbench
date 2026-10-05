@@ -13,6 +13,14 @@
 
 ## 啟動前端
 
+### 桌面 App 原型
+
+此分支新增 **Electron + Hermes** 桌面模式，提供 Agent、自我覺察、練習與實踐三個入口。Agent 支援真實會話、串流工具進度、操作確認、補充提問與中斷；覺察紀錄可直接保存在 App 的工作目錄，不需要完整 LifeOS。
+
+首版需要本機已有 Hermes 與模型設定，尚未把 Hermes/Python 放進安裝包。啟動、封裝、資料位置與驗證範圍見 [桌面版說明](desktop/README.md)。
+
+### 既有 Web 模式
+
 需要安裝 [Bun](https://bun.sh)。在本倉庫執行：
 
 ```sh
@@ -48,6 +56,7 @@ bun test tests/practices integrations/lifeos/modules/self-awareness.test.ts inte
 
 ```text
 frontend/                Next.js、React 與 Three.js 前端
+desktop/                 Electron 容器、本機服務與 Hermes 適配器
 integrations/lifeos/      既有 LifeOS 的 API 模組、測試及註冊差異
 tests/practices/          練習分類與經咒內容完整性檢查
 LICENSE                  MIT 授權
