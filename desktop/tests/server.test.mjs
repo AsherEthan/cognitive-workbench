@@ -218,7 +218,10 @@ test('malformed or non-JSON mutation bodies never reach an operation; awareness 
 
 test('static routes resolve exported pages and enforce a nonce CSP without caching private HTML', { timeout: 5000 }, async t => {
   const f = await fixture(t);
-  for (const path of ['/', '/agent', '/agent.html', '/nested/']) {
+  const home = await f.request('/');
+  assert.equal(home.status, 302);
+  assert.equal(home.headers.location, '/awareness');
+  for (const path of ['/awareness', '/agent', '/agent.html', '/nested/']) {
     const response = await f.request(path);
     assert.equal(response.status, 200, path);
     assert.match(response.headers['content-type'], /^text\/html/);

@@ -25,6 +25,7 @@
 .eyebrow { font-size: 10px; letter-spacing: .13em; color: var(--agent-muted); }
 .eyebrow span { display: inline-block; padding: 0 12px; opacity: .45; }
 .heading h1 { margin-top: 11px; font-size: 28px; font-family: 'valkyrie-text', 'Songti TC', 'Noto Serif TC', serif; font-weight: 400; line-height: 1.4; letter-spacing: .045em; }
+.heading .headingNote { margin-top: 9px; max-width: 680px; font-size: 11px; line-height: 1.8; color: var(--agent-muted); }
 .subtleButton { color: var(--agent-muted); font-size: 12px; padding: 9px 12px; border: 1px solid var(--agent-line); border-radius: 4px; }
 .subtleButton:hover { color: var(--agent-ink); border-color: #647d85; background: var(--agent-surface); }
 .workbench { display: grid; grid-template-columns: 244px minmax(0, 1fr); flex: 1; min-height: 0; border: 1px solid var(--agent-line); border-radius: 6px; overflow: hidden; }

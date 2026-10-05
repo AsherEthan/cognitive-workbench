@@ -20,7 +20,7 @@ else {
   app.whenReady().then(async () => {
     const workspace = join(app.getPath('userData'), 'workspace');
     const frontendDir = join(app.getAppPath(), 'frontend', 'out');
-    if (!existsSync(join(frontendDir, 'agent.html')) && !existsSync(join(frontendDir, 'agent', 'index.html'))) throw new Error('缺少前端編譯產物。請先執行 npm run desktop:build。');
+    if (['awareness', 'practices', 'agent'].some(page => !existsSync(join(frontendDir, page + '.html')) && !existsSync(join(frontendDir, page, 'index.html')))) throw new Error('缺少前端編譯產物。請先執行 npm run desktop:build。');
     prepareWorkspace(workspace, practices, practiceSources);
     process.env.SELF_AWARENESS_USER_DIR = workspace;
     manager = new HermesManager({ workspace, settingsPath: join(app.getPath('userData'), 'desktop-settings.json') });
@@ -31,12 +31,12 @@ else {
     Menu.setApplicationMenu(Menu.buildFromTemplate([
       ...(process.platform === 'darwin' ? [{ label: app.name, submenu: [{ role: 'about' }, { type: 'separator' }, { role: 'hide' }, { role: 'hideOthers' }, { role: 'unhide' }, { type: 'separator' }, { role: 'quit' }] }] : []),
       { label: '檔案', submenu: [
-        { label: 'Agent', accelerator: 'CmdOrCtrl+1', click: () => window?.loadURL(server.origin + '/agent') },
-        { label: '自我覺察', accelerator: 'CmdOrCtrl+2', click: () => window?.loadURL(server.origin + '/awareness') },
-        { label: '練習與實踐', accelerator: 'CmdOrCtrl+3', click: () => window?.loadURL(server.origin + '/practices') },
+        { label: '自我覺察', accelerator: 'CmdOrCtrl+1', click: () => window?.loadURL(server.origin + '/awareness') },
+        { label: '練習與實踐', accelerator: 'CmdOrCtrl+2', click: () => window?.loadURL(server.origin + '/practices') },
         { type: 'separator' }, { label: '開啟工作目錄', click: () => shell.openPath(workspace) },
         ...(process.platform !== 'darwin' ? [{ role: 'quit' }] : []),
       ] },
+      { label: '設定', submenu: [{ label: '資訊處理層', accelerator: 'CmdOrCtrl+,', click: () => window?.loadURL(server.origin + '/agent') }] },
       { label: '編輯', submenu: [{ role: 'undo' }, { role: 'redo' }, { type: 'separator' }, { role: 'cut' }, { role: 'copy' }, { role: 'paste' }, { role: 'selectAll' }] },
       { label: '檢視', submenu: [{ role: 'reload' }, { role: 'resetZoom' }, { role: 'zoomIn' }, { role: 'zoomOut' }, { role: 'togglefullscreen' }, ...(!app.isPackaged ? [{ role: 'toggleDevTools' }] : [])] },
       { label: '視窗', submenu: [{ role: 'minimize' }, { role: 'close' }] },
@@ -48,7 +48,7 @@ else {
       window.webContents.on('will-navigate', (event, url) => { if (new URL(url).origin !== server.origin) event.preventDefault(); });
       window.once('ready-to-show', () => window?.show());
       window.on('closed', () => { window = null; });
-      void window.loadURL(server.origin + '/agent');
+      void window.loadURL(server.origin + '/awareness');
     };
     createWindow();
     app.on('activate', () => { if (!window) createWindow(); });

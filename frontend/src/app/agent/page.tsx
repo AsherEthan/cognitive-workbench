@@ -531,12 +531,12 @@ export default function AgentPage() {
 
   return <div className={styles.page} lang="zh-Hant">
     <header className={styles.heading}>
-      <div><p className={styles.eyebrow}>認知工作台 <span>/</span> AGENT</p><h1>把想法，帶到行動。</h1></div>
+      <div><p className={styles.eyebrow}>認知工作台 <span>/</span> 連接與診斷</p><h1>資訊處理層</h1><p className={styles.headingNote}>此頁供連接與測試；Telegram 等外部輸入路由尚未接通工作台資料。</p></div>
       <button className={styles.subtleButton} onClick={() => setSettingsOpen(value => !value)} aria-expanded={settingsOpen} aria-controls="agent-settings"><Settings2 size={15} />連接設定</button>
     </header>
 
     {settingsOpen && <form id="agent-settings" className={styles.settings} onSubmit={saveSettings}>
-      <div><h2>連接你的 Hermes</h2><p>使用已安裝的 Hermes 與其中的模型設定。</p></div>
+      <div><h2>連接 Hermes 處理層</h2><p>使用已安裝的 Hermes 與其中的模型設定。</p></div>
       <label htmlFor="hermes-executable">Hermes 執行檔<input id="hermes-executable" value={executable} onChange={event => setExecutable(event.target.value)} placeholder="hermes，或完整的執行檔路徑" autoComplete="off" spellCheck={false} disabled={ready || status?.state === "starting" || savingSettings} /></label>
       <p className={styles.settingsHint}>{ready || status?.state === "starting" ? "先停止連接，即可修改執行檔位置。" : "若電腦還沒有 Hermes，請先完成安裝與模型設定，再回到這裡連接。"}</p>
       <div className={styles.settingsActions}><button type="button" onClick={() => setSettingsOpen(false)}>收起</button><button type="submit" className={styles.primary} disabled={available !== true || ready || status?.state === "starting" || savingSettings}>{savingSettings ? "保存中…" : "保存設定"}</button></div>
@@ -544,11 +544,11 @@ export default function AgentPage() {
 
     <div className={styles.workbench}>
       <aside className={styles.sidebar} aria-label="對話列表">
-        <div className={styles.sidebarHeading}><span>你的對話</span><button className={styles.iconButton} aria-label="更新對話列表" title="更新對話列表" onClick={() => void refreshSessions()} disabled={!ready || sessionsLoading}><RefreshCw size={14} className={sessionsLoading ? styles.spinner : undefined} /></button></div>
+        <div className={styles.sidebarHeading}><span>Hermes 對話</span><button className={styles.iconButton} aria-label="更新對話列表" title="更新對話列表" onClick={() => void refreshSessions()} disabled={!ready || sessionsLoading}><RefreshCw size={14} className={sessionsLoading ? styles.spinner : undefined} /></button></div>
         <button className={styles.newConversation} onClick={() => void newConversation()} disabled={!ready || anyBusy}><Plus size={16} />新對話</button>
         <div className={styles.sessionList} aria-busy={sessionsLoading}>
           {sessions.map(session => <button key={session.id} className={styles.session} aria-current={session.id === activeSession?.storedId ? "true" : undefined} disabled={!ready || conversation.running || sessionBusy} onClick={() => void resumeSession(session)}><span className={styles.sessionTitle}><MessageSquare size={13} /><span>{session.title || session.preview || "未命名對話"}</span></span><span className={styles.sessionMeta}><time>{shortDate(session.started_at)}</time>{typeof session.message_count === "number" && <span>{session.message_count} 則</span>}</span></button>)}
-          {!sessions.length && <p className={styles.emptySessions}>{!ready ? "連接後，可以接續先前的對話。" : sessionsLoading ? "正在讀取對話…" : "還沒有對話。\n從一件想完成的事開始。"}</p>}
+          {!sessions.length && <p className={styles.emptySessions}>{!ready ? "連接後，可檢視 Hermes 中的對話。" : sessionsLoading ? "正在讀取對話…" : "還沒有對話。\n可從右側傳送一則測試訊息。"}</p>}
         </div>
         <div className={styles.connectionPanel}>
           <p className={styles.connectionStatus} role="status"><span className={`${styles.statusDot} ${ready ? styles.ready : status?.state === "error" || status?.state === "missing" ? styles.problem : ""}`} />{statusLabel}</p>
@@ -558,7 +558,7 @@ export default function AgentPage() {
         </div>
       </aside>
 
-      <section className={styles.chat} aria-label="Agent 對話">
+      <section className={styles.chat} aria-label="資訊處理層連接測試">
         <div className={styles.chatHeading}><div><p>{sessionBusy && !conversation.running ? "正在開啟對話…" : currentTitle}</p><span>{conversation.running ? hasRequests ? "等待你的決定" : "正在處理" : ready ? "可以開始" : "等待連接"}{activeSession?.model ? ` · ${activeSession.model}` : ""}</span></div>{activeSession?.storedId && <button className={styles.iconButton} aria-label="同步這段對話" title="同步這段對話" disabled={!ready || anyBusy} onClick={() => void resumeSession({ id: activeSession.storedId!, title: currentTitle })}><RefreshCw size={15} /></button>}</div>
 
         <div ref={transcript} className={styles.transcript} onScroll={() => { if (transcript.current) followOutput.current = transcript.current.scrollHeight - transcript.current.scrollTop - transcript.current.clientHeight < 100; }}>
@@ -570,10 +570,10 @@ export default function AgentPage() {
 
           {!conversation.items.length && !sessionBusy && <div className={styles.empty}>
             <span className={styles.emptyMark} aria-hidden="true"><span /></span>
-            <p className={styles.emptyEyebrow}>一件事，一步步完成</p>
-            <h2>此刻，想一起做些什麼？</h2>
-            <p>整理一個念頭，讀懂一份資料，<br />或把一件掛在心上的事往前推進。</p>
-            <div className={styles.suggestions}>{["幫我釐清今天最重要的一件事", "查看工作目錄，先告訴我有哪些資料", "我有一個想法，想把它整理成行動計畫"].map(suggestion => <button key={suggestion} onClick={() => { setDraft(suggestion); input.current?.focus(); }}>{suggestion}<span aria-hidden="true">↗</span></button>)}</div>
+            <p className={styles.emptyEyebrow}>驗證處理層連接</p>
+            <h2>確認 Hermes 可以正常回應。</h2>
+            <p>可在此傳送測試指令，<br />查看回覆、工具進度與確認請求。</p>
+            <div className={styles.suggestions}>{["請用一句話確認你已收到這則測試訊息。", "查看目前工作目錄，列出可見的檔案。", "請說明你能如何處理一份文字筆記，先不要修改檔案。"].map(suggestion => <button key={suggestion} onClick={() => { setDraft(suggestion); input.current?.focus(); }}>{suggestion}<span aria-hidden="true">↗</span></button>)}</div>
           </div>}
 
           <div className={styles.messages} aria-label="對話內容" aria-busy={conversation.running}>
@@ -593,11 +593,11 @@ export default function AgentPage() {
 
         <div className={styles.composerArea}>
           <form className={styles.composer} onSubmit={send}>
-            <label className={styles.srOnly} htmlFor="agent-input">輸入要交給 Agent 的事情</label>
-            <textarea ref={input} id="agent-input" rows={2} maxLength={32000} value={draft} placeholder={conversation.running ? "可以先寫下下一個想法…" : "寫下想法，或想一起完成的事…"} onChange={event => setDraft(event.target.value)} onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing && ready) { event.preventDefault(); if (canSend) void send(); } }} />
+            <label className={styles.srOnly} htmlFor="agent-input">輸入傳送到資訊處理層的測試指令</label>
+            <textarea ref={input} id="agent-input" rows={2} maxLength={32000} value={draft} placeholder={conversation.running ? "可以先寫下下一則測試…" : "輸入測試訊息，確認連接與工具是否正常…"} onChange={event => setDraft(event.target.value)} onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing && ready) { event.preventDefault(); if (canSend) void send(); } }} />
             {conversation.running ? <button type="button" className={styles.interruptButton} onClick={() => void interrupt()} disabled={interrupting || !ready} aria-label={interrupting ? "正在中斷" : "中斷本次回應"} title="中斷本次回應"><Square size={15} fill="currentColor" /></button> : <button type="submit" className={styles.sendButton} disabled={!canSend} aria-label="傳送給 Agent"><ArrowUp size={18} /></button>}
           </form>
-          <div className={styles.composerFooter}><span>{conversation.running ? "可隨時中斷本次回應" : ready ? "Enter 傳送 · Shift + Enter 換行" : "可以先寫下來，連接後再傳送"}</span><span>{ready ? "Hermes" : "草稿暫存在此分頁"}</span></div>
+          <div className={styles.composerFooter}><span>{conversation.running ? "可隨時中斷本次回應" : ready ? "Enter 傳送 · Shift + Enter 換行" : "可以先寫下來，連接後再傳送"}</span><span>{ready ? "Hermes · 連接測試" : "草稿暫存在此分頁"}</span></div>
         </div>
       </section>
     </div>

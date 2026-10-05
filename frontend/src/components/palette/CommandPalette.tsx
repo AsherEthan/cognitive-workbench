@@ -330,7 +330,7 @@ export default function CommandPalette() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleInputKeyDown}
-            placeholder={desktop ? "搜尋自我覺察、練習或 Agent…" : scope === "wiki" ? "搜尋文件與知識…" : "搜尋工作區、文件與知識…"}
+            placeholder={desktop ? "搜尋自我覺察、練習或處理層連接…" : scope === "wiki" ? "搜尋文件與知識…" : "搜尋工作區、文件與知識…"}
             className="flex-1 min-w-0 bg-transparent text-[15px] text-ink-1 placeholder:text-ink-3 outline-none caret-[#b5e5d5]"
             style={font}
           />

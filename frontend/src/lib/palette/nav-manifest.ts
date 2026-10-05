@@ -81,7 +81,7 @@ export const tier1Nav: NavItem[] = [
 export const desktopNav: NavItem[] = [
   { href: "/awareness", label: "自我覺察", icon: Compass, keywords: ["awareness", "狀態", "覺察"] },
   { href: "/practices", label: "練習與實踐", icon: BookOpen, keywords: ["practices", "練習", "閱讀", "冥想"] },
-  { href: "/agent", label: "Agent", icon: Bot, keywords: ["hermes", "對話", "輸入口", "助理", "代理", "工作"] },
+  { href: "/agent", label: "處理層連接", icon: Bot, keywords: ["hermes", "agent", "資訊處理", "處理層", "連接", "測試", "設定"] },
 ];
 
 // ── Meta — pinned in the header's right cluster on EVERY page, outside both

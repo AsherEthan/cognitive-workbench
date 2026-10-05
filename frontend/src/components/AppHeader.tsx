@@ -13,7 +13,7 @@ export default function AppHeader() {
   const isEnabled = useEnabledModules();
   const { desktop, pages } = useDesktopCapabilities();
   useEffect(() => {
-    const wanted = `${pathname === "/agent" || pathname.startsWith("/agent/") ? "Agent" : pageLabel(pathname)} · 認知工作台`;
+    const wanted = `${pathname === "/agent" || pathname.startsWith("/agent/") ? "資訊處理層" : pageLabel(pathname)} · 認知工作台`;
     const update = () => { if (document.title !== wanted) document.title = wanted; };
     update();
     const observer = new MutationObserver(update);

@@ -1,18 +1,22 @@
 # 認知工作台桌面原型
 
-將既有 Next.js 介面放進 Electron，讓 Hermes 執行真正的 Agent 對話和工具。桌面首版提供 **Agent、自我覺察、練習與實踐** 三個入口；這三個入口不需要先安裝完整 LifeOS。
+將既有 Next.js 介面放進 Electron，保持認知工作台作為產品主體。**Agent 是資訊處理層，Telegram Bot 等輸入端屬於 Agent 系統的 Gateway／路由。** 工作台負責資料的保存、組織、呈現與校正，處理層負責依任務整理資訊。
+
+目前開啟 App 會進入既有自我覺察頁，主導覽保留自我覺察與練習；Hermes 的連接與測試放在次要的「資訊處理」入口。這些功能不需要先安裝完整 LifeOS。重構目標見 [五層架構](../ARCHITECTURE.md)：LifeOS 僅作參考，第三層可接 Hermes、nanobot 或其他符合契約的適配器。原型尚未完成獨立核心及 nanobot 接線，詳見 [原型邊界](ARCHITECTURE.md)。
 
 **此版連接本機已安裝、已完成模型設定的 Hermes。安裝包尚未包含 Hermes、Python 或模型。** 這是可編譯、可審查的第一版接入實作，尚待真實 Hermes 與 macOS 安裝包驗收。
 
+**外部輸入路由與處理結果寫入工作台的通用接口尚未完成。** 現有 `/agent` 頁只供處理層連接、診斷和測試對話，不代表 Telegram 已接通工作台。
+
 ## 介面預覽
 
-![Agent 的工具操作確認介面](docs/agent-preview.png)
+![認知工作台的自我覺察入口](docs/workbench-preview.png)
 
-截圖使用本機協議測試服務，對話內容是驗收資料；畫面中的確認按鈕已經由瀏覽器操作驗證。
+截圖使用暫存工作目錄；未知的覺察狀態維持未知。資訊處理層可以從右上角的次要入口開啟。
 
 ## 啟動
 
-開發環境需要 Node.js、npm、Bun，以及支援 `hermes serve` 的 Hermes。此分支在 Node.js 24、Bun 1.4.2 上編譯驗證。
+開發與編譯需要 Node.js、npm、Bun；僅測試資訊處理層時，需要本機已安裝支援 `hermes serve` 的 Hermes。此分支在 Node.js 24、Bun 1.4.2 上編譯驗證。
 
 在倉庫根目錄安裝桌面及前端依賴：
 
@@ -27,10 +31,10 @@ npm run desktop:start
 
 首次開啟 App：
 
-1. 如果還沒安裝 Hermes，依照 [Hermes 官方安裝與模型設定說明](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart) 完成安裝，先確認它在終端可以正常使用。
-2. 在 App 的「連接設定」填入 Hermes 可執行檔的完整路徑；留空會搜尋 PATH 和常見安裝位置。這裡接受程式路徑，不接受整段 shell 命令。
+1. App 開啟後可先使用覺察及練習。要測試資訊處理層時，依照 [Hermes 官方安裝與模型設定說明](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart) 完成安裝，先確認它在終端可以正常使用。
+2. 從右上角「資訊處理」或原生選單「設定 → 資訊處理層」進入連接頁，在「連接設定」填入 Hermes 可執行檔的完整路徑；留空會搜尋 PATH 和常見安裝位置。這裡接受程式路徑，不接受整段 shell 命令。
 3. 按「開始連接」。App 啟動自己的本機 Hermes 服務，等待真正的連線就緒，再開放傳送訊息。
-4. 建立新對話，或選擇 Hermes 已保存的對話接續。模型與供應商設定沿用 Hermes，不需要把 API key 複製進工作台。
+4. 建立測試對話，或選擇 Hermes 已保存的對話接續。模型與供應商設定沿用 Hermes，不需要把 API key 複製進工作台。此操作只驗證處理層連接，不會自動建立工作台的認知資料。
 
 macOS 從 Finder 啟動 App 時，PATH 可能與終端不同。若終端可使用 `hermes`，App 卻找不到，請在終端用 `command -v hermes` 取得完整路徑，填入連接設定。
 
@@ -53,16 +57,17 @@ macOS 從 Finder 啟動 App 時，PATH 可能與終端不同。若終端可使�
 
 檔案讀寫由真實 Hermes 工具完成。工作目錄只是預設位置，並非作業系統沙盒；`WORKBENCH.md` 是資料約定，不能取代檔案權限或 Hermes 工具政策。
 
-## 技術分層
+## 現有原型組件
 
-| 層 | 實作 | 職責 |
+| 組件 | 實作 | 職責 |
 | --- | --- | --- |
-| 介面 | 既有 Next.js 靜態輸出、React、Three.js | 覺察、練習、Agent 對話與確認卡片 |
+| 工作台介面 | 既有 Next.js 靜態輸出、React、Three.js | 覺察、練習與使用者操作 |
+| 處理層診斷介面 | 次要入口 `/agent` | 連接設定、測試對話與確認卡片 |
 | 桌面容器 | `main.mjs`、Electron | 視窗、原生選單、工作目錄、App 關閉與程序清理 |
 | 本機橋接 | `lib/server.mjs` | 同來源 HTTP API、SSE 事件、自我覺察 API、靜態頁面 |
 | 程序管理 | `lib/hermes-manager.mjs` | 尋找 Hermes、啟停與重連、會話操作、等待確認 |
 | 協議適配 | `lib/hermes-gateway.mjs` | WebSocket、JSON-RPC、握手、心跳與雙向請求 |
-| 執行核心 | 使用者已安裝的 Hermes | 模型、Agent 迴圈、工具、技能、記憶及會話保存 |
+| 資訊處理層 | 使用者已安裝的 Hermes | 模型、Agent 迴圈、工具、技能及處理用會話 |
 
 Electron 的渲染程序沒有 Node.js 存取權，開啟 `contextIsolation` 與 Chromium sandbox。介面使用窄範圍的本機 API，沒有把任意 shell 執行或 Electron IPC 直接暴露給頁面。
 
@@ -77,6 +82,8 @@ hermes serve --host 127.0.0.1 --port 0 --isolated
 UI 與本機橋接使用另一個隨機 HttpOnly Cookie。服務僅監聽 `127.0.0.1`，驗證 Host、Origin、Cookie，且不開放跨來源 API。
 
 新建及恢復會話使用 `source: cognitive-workbench`，避免宣稱支援 Hermes 官方桌面版才有的視窗、預覽及其他專用工具。新建對話的預設目錄為工作台 workspace；恢復歷史對話會保留 Hermes 的既有會話狀態及目錄。
+
+此處的 `serve` 與 `/api/ws` 不會自動啟動 Telegram Messaging Gateway。外部通道應由其獨立 Gateway 路由，並透過工作台資料接口保存原始輸入與處理結果；這部分尚未實作。若要在工作台退出後繼續接收輸入，Gateway 和資料服務也需要獨立的生命週期。
 
 ## 資料保存
 
@@ -137,7 +144,9 @@ bun test tests/practices integrations/lifeos/modules/self-awareness.test.ts inte
 | 原生視窗 | 目前驗證環境禁止 Electron 單一實例鎖所需的系統 socket，未完成視窗啟動驗收 |
 | 真實 Hermes／模型、macOS 安裝及簽章 | 尚未驗證 |
 
-原有可選商業字體的兩個網址因字體未隨倉庫提供而回傳 404，介面使用系統字體替代；未補入未授權的字體。瀏覽器截圖在測試環境使用 Noto CJK 字體渲染繁體中文。
+入口定位校正後，另驗證根路徑進入工作台、主要導覽不包含診斷頁，以及次要資訊處理入口仍可開啟。這次校正不改變上述外部路由與入庫接口的未完成狀態。
+
+原有可選商業字體未隨倉庫提供；入口驗證觀察到三個字體資源回傳 404，介面使用系統字體替代，未補入未授權的字體。瀏覽器截圖在測試環境使用 Noto CJK 字體渲染繁體中文。
 
 ## Hermes 協議依據
 

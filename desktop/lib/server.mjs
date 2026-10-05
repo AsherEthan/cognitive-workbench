@@ -98,9 +98,13 @@ export async function startWorkbenchServer({ frontendDir, manager, awarenessHand
       }
       if (pathname.startsWith('/api/')) return json({ error: '此功能不在桌面首版的範圍內。' }, 404);
       if (!['GET', 'HEAD'].includes(req.method)) return json({ error: '不支援此操作。' }, 405);
+      if (pathname === '/') {
+        res.writeHead(302, { Location: '/awareness', 'Cache-Control': 'no-store' });
+        res.end(); return;
+      }
 
       const base = realpathSync(frontendDir);
-      const decoded = decodeURIComponent(pathname === '/' ? '/agent' : pathname);
+      const decoded = decodeURIComponent(pathname);
       if (decoded.includes('\0')) return json({ error: '無效路徑。' }, 400);
       const candidate = resolve(base, '.' + decoded);
       const inside = path => { const rel = relative(base, path); return rel !== '..' && !rel.startsWith('..' + sep) && !rel.startsWith(sep); };

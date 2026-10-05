@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "description": "認知工作台：本機覺察、練習與 Hermes Agent 桌面應用",
+  "description": "認知工作台：本機資料、覺察與可替換的資訊處理層",
   "main": "desktop/dist/main.cjs",
   "scripts": {
     "dev": "bun --cwd frontend run dev",
@@ -27,7 +27,7 @@
     "appId": "studio.cognitiveworkbench.desktop",
     "productName": "認知工作台",
     "directories": { "output": "desktop/release" },
-    "files": ["desktop/dist/main.cjs", "frontend/out/**/*", "package.json", "LICENSE", "THIRD_PARTY_NOTICES.md", "desktop/README.md", "desktop/docs/**/*"],
+    "files": ["desktop/dist/main.cjs", "frontend/out/**/*", "package.json", "LICENSE", "THIRD_PARTY_NOTICES.md", "ARCHITECTURE.md", "docs/architecture/**/*", "desktop/README.md", "desktop/ARCHITECTURE.md", "desktop/docs/**/*"],
     "asar": true,
     "mac": {
       "category": "public.app-category.productivity",
